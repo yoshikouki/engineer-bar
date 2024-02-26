@@ -1,6 +1,7 @@
-import path from "path";
+import pages from "@hono/vite-cloudflare-pages";
 import honox from "honox/vite";
 import { defineConfig } from "vite";
+import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig(({ mode }) => {
   if (mode === "client") {
@@ -16,17 +17,13 @@ export default defineConfig(({ mode }) => {
         },
         emptyOutDir: false,
       },
+      plugins: [tsconfigPaths()],
     };
   }
   return {
     ssr: {
       external: ["react", "react-dom"],
     },
-    plugins: [honox()],
-    resolve: {
-      alias: {
-        "@": path.resolve(__dirname, "./app"),
-      },
-    },
+    plugins: [honox(), pages(), tsconfigPaths()],
   };
 });
