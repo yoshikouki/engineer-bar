@@ -1,8 +1,8 @@
-import honox from 'honox/vite';
-import { defineConfig } from 'vite';
+import honox from "honox/vite";
+import { defineConfig } from "vite";
 
 export default defineConfig(({ mode }) => {
-  if (mode === 'client') {
+  if (mode === "client") {
     return {
       build: {
         rollupOptions: {
@@ -15,7 +15,7 @@ export default defineConfig(({ mode }) => {
         },
         emptyOutDir: false,
       },
-    }
+    };
   }
   return {
     ssr: {
@@ -23,4 +23,4 @@ export default defineConfig(({ mode }) => {
     },
     plugins: [honox()],
   };
-})
+});
