@@ -14,7 +14,7 @@ app.get(
         </body>
       </html>
     );
-  })
+  }),
 );
 
 app.get("/", async (c) => {
