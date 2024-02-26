@@ -1,7 +1,15 @@
 import { reactRenderer } from "@hono/react-renderer";
+import { Server } from "bun";
 import { Hono } from "hono";
+import { logger } from "hono/logger";
 
-const app = new Hono();
+const app = new Hono<{
+  Bindings: {
+    server: Server;
+  };
+}>();
+
+app.use(logger());
 
 app.get(
   "*",
@@ -18,7 +26,14 @@ app.get(
 );
 
 app.get("/", async (c) => {
-  return c.render(<h1>Hello, World!</h1>);
+  return c.render(<h1>Hello, World!!1</h1>);
 });
 
-export default app;
+export default {
+  port: process.env.PORT || "8888",
+  fetch: (req: Request, server: Server) => {
+    return app.fetch(req, {
+      server,
+    });
+  },
+};
