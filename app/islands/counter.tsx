@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { useState } from "react";
 
 export default function Counter() {
@@ -5,9 +6,9 @@ export default function Counter() {
   return (
     <div>
       <p>{count}</p>
-      <button onClick={() => setCount(count + 1)} type="button">
+      <Button onClick={() => setCount(count + 1)}>
         Increment
-      </button>
+      </Button>
     </div>
   );
 }

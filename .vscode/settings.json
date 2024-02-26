@@ -1,7 +1,4 @@
 {
   "editor.defaultFormatter": "biomejs.biome",
-  "cSpell.words": [
-    "hono",
-    "honox"
-  ]
+  "cSpell.words": ["hono", "honox"]
 }

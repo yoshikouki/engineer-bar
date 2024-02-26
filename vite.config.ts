@@ -1,3 +1,4 @@
+import path from "path";
 import honox from "honox/vite";
 import { defineConfig } from "vite";
 
@@ -22,5 +23,10 @@ export default defineConfig(({ mode }) => {
       external: ["react", "react-dom"],
     },
     plugins: [honox()],
+    resolve: {
+      alias: {
+        "@": path.resolve(__dirname, "./app"),
+      },
+    },
   };
 });
