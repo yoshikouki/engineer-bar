@@ -1,40 +1,24 @@
 {
-  "name": "basic",
+  "name": "hono-vite",
+  "private": true,
+  "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build --mode client && vite build",
-    "preview": "wrangler pages dev ./dist",
-    "deploy": "$npm_execpath run build && wrangler pages deploy ./dist",
-    "lint": "bunx @biomejs/biome check .",
-    "format": "bunx @biomejs/biome check --apply ."
-  },
-  "private": true,
-  "dependencies": {
-    "@hono/react-renderer": "^0.0.2",
-    "@radix-ui/react-slot": "^1.0.2",
-    "class-variance-authority": "^0.7.0",
-    "clsx": "^2.1.0",
-    "hono": "^4.0.7",
-    "honox": "^0.1.5",
-    "lucide-react": "^0.341.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "tailwind-merge": "^2.2.1",
-    "tailwindcss-animate": "^1.0.7"
+    "build": "tsc && vite build",
+    "preview": "vite preview"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.5.3",
-    "@cloudflare/workers-types": "^4.20240208.0",
-    "@hono/vite-cloudflare-pages": "^0.2.4",
-    "@types/bun": "^1.0.7",
+    "@hono/vite-dev-server": "^0.7.0",
     "@types/react": "^18.2.58",
     "@types/react-dom": "^18.2.19",
-    "autoprefixer": "^10.4.17",
-    "postcss": "^8.4.35",
-    "tailwindcss": "^3.4.1",
-    "vite": "^5.0.12",
-    "vite-tsconfig-paths": "^4.3.1",
-    "wrangler": "^3.27.0"
+    "typescript": "^5.2.2",
+    "vite": "^5.1.3"
+  },
+  "dependencies": {
+    "@hono/react-renderer": "^0.0.2",
+    "hono": "^4.0.7",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   }
 }
