@@ -29,7 +29,7 @@ RUN bun install --production
 COPY --link . .
 
 # Build application
-# RUN bun run build
+RUN bun run build
 
 # Remove development dependencies
 # RUN rm -rf node_modules && \
@@ -40,7 +40,9 @@ COPY --link . .
 FROM base
 
 # Copy built application
-COPY --from=build /app /app
+COPY --from=build /app/server /app/server
+COPY --from=build /app/public /app/public
+COPY --from=build /app/dist /app/dist
 
 # Start the server by default, this can be overwritten at runtime
 EXPOSE 3000

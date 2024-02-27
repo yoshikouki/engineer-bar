@@ -3,6 +3,9 @@ import { Server } from "bun";
 import { Hono } from "hono";
 import { logger } from "hono/logger";
 
+import { serveStatic } from "hono/bun";
+import { Layout } from "./layout";
+
 const app = new Hono<{
   Bindings: {
     server: Server;
@@ -10,23 +13,16 @@ const app = new Hono<{
 }>();
 
 app.use(logger());
+app.use("/static/*", serveStatic({ root: "dist" }));
+app.use("/favicon.svg", serveStatic({ root: "public" }));
 
 app.get(
   "*",
-  reactRenderer(({ children }) => {
-    return (
-      <html lang="ja">
-        <body>
-          <h1>React + Hono</h1>
-          <div>{children}</div>
-        </body>
-      </html>
-    );
-  }),
+  reactRenderer(Layout),
 );
 
 app.get("/", async (c) => {
-  return c.render(<h1>Hello, World!!1</h1>);
+  return c.render(<div id="root" />);
 });
 
 export default {
