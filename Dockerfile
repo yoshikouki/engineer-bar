@@ -23,7 +23,7 @@ FROM base as build
 
 # Install node modules
 COPY --link bun.lockb package.json ./
-RUN bun install --production
+RUN bun install
 
 # Copy application code
 COPY --link . .
@@ -46,4 +46,4 @@ COPY --from=build /app/dist /app/dist
 
 # Start the server by default, this can be overwritten at runtime
 EXPOSE 3000
-CMD [ "bun", "run", "start" ]
+CMD [ "./server" ]
