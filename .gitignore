@@ -13,6 +13,8 @@ dist-ssr
 *.local
 .vite
 server
+public/static
+!public/static/.keep
 
 # Editor directories and files
 .vscode/*

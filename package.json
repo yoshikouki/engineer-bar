@@ -4,9 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "bun --bun x vite",
+    "dev": "bun --bun --watch run src/server.tsx",
     "build": "bun run build:client && bun run build:sever",
-    "build:client": "NODE_ENV=production bun --bun x vite build --mode client",
+    "build:client": "NODE_ENV=production bun build --outfile public/static/client.js src/client.tsx",
     "build:sever": "NODE_ENV=production bun build --compile src/server.tsx",
     "start": "bun --bun --watch run src/server.tsx",
     "lint": "bun --bun x @biomejs/biome check .",
