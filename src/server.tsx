@@ -1,33 +1,26 @@
 import { reactRenderer } from "@hono/react-renderer";
 import { Hono } from "hono";
+import { serveStatic } from "hono/bun";
 import { logger } from "hono/logger";
 
-import { serveStatic } from "hono/bun";
 import { Layout } from "./layout";
-
-if (process.env.NODE_ENV === "development") {
-  await Bun.build({
-    entrypoints: ["./src/client.tsx"],
-    outdir: "./public/static",
-  });
-}
 
 const app = new Hono();
 
 app.use(logger());
-app.use("/static/*", serveStatic({ root: "public" }));
-app.use("/favicon.svg", serveStatic({ root: "public" }));
 
-app.get(
-  "*",
-  reactRenderer(Layout),
-);
+app.get("/static/*", serveStatic({ root: "./public" }));
+app.get("/favicon.*", serveStatic({ root: "public", path: "favicon.svg" }));
+app.get("*",reactRenderer(Layout));
 
 app.get("/", async (c) => {
   return c.render(<div id="root" />);
 });
 
+const port = process.env.PORT || "8888"
+console.log(`Listening on http://localhost:${port}`);
+
 export default {
-  port: process.env.PORT || "8888",
+  port,
   fetch: app.fetch,
 };

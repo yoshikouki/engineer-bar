@@ -1,9 +1,8 @@
-import devServer from "@hono/vite-dev-server";
-import { defineConfig } from "vite";
+import type http from 'http';
+import { minimatch } from "minimatch";
+import { Connect, ViteDevServer, defineConfig, type Plugin } from "vite";
 
 export default defineConfig(({ mode }) => {
-  console.log("mode", mode);
-  console.log("process.env.NODE_ENV", process.env.NODE_ENV);
   if (mode === "client") {
     return {
       build: {
@@ -15,16 +14,63 @@ export default defineConfig(({ mode }) => {
             assetFileNames: "static/assets/[name].[ext]",
           },
         },
+        minify: true,
         emptyOutDir: false,
         copyPublicDir: false,
+        sourcemap: true,
       },
     };
   }
   return {
-    plugins: [
-      devServer({
-        entry: "src/server.tsx",
-      }),
-    ],
+    server: {
+      proxy: {
+        "^/$": {
+          target: "http://localhost:8888",
+        },
+      },
+      watch: {
+        ignored: [],
+      },
+    },
+    plugins: [devServer()],
   };
 });
+
+function devServer(): Plugin {
+  const plugin: Plugin = {
+    name: "@hono/vite-dev-server",
+    configureServer: async (server: ViteDevServer) => {
+      server.middlewares.use(
+        async (
+          req: http.IncomingMessage,
+          res: http.ServerResponse,
+          next: Connect.NextFunction
+        ) => {
+          const exclude = [
+            /.*\.ts$/,
+            /.*\.tsx$/,
+            /^\/client.tsx$/,
+            /^\/@.+$/,
+            /^\/favicon\.ico$/,
+            /^\/static\/.+/,
+            /^\/node_modules\/.*/,
+          ];
+
+          for (const pattern of exclude) {
+            if (!req.url) continue;
+            if (pattern instanceof RegExp) {
+              if (!pattern.test(req.url)) continue;
+              return next();
+            }
+            if (minimatch(req.url?.toString(), pattern)) {
+              return next();
+            }
+          }
+
+          next();
+        }
+      );
+    },
+  };
+  return plugin;
+}
