@@ -1,6 +1,7 @@
 import React from "react";
 
-import "./index.css";
+import "../index.css";
+import { ThemeProvider } from "./theme-provider";
 
 export const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -23,7 +24,9 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
         )}
       </head>
       <body>
-        <main>{children}</main>
+        <ThemeProvider defaultTheme="dark" storageKey="ui-theme">
+          <main>{children}</main>
+        </ThemeProvider>
       </body>
     </html>
   );

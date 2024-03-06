@@ -1,12 +1,12 @@
 import { hydrateRoot } from "react-dom/client";
 import "vite/modulepreload-polyfill";
 
+import { Layout } from "./components/layout";
 import { App } from "./features/app";
-import { Layout } from "./layout";
 
 hydrateRoot(
   document,
   <Layout>
     <App />
-  </Layout>
+  </Layout>,
 );

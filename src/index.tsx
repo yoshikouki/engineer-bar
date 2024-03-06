@@ -3,8 +3,8 @@ import { Hono } from "hono";
 import { serveStatic } from "hono/bun";
 import { logger } from "hono/logger";
 
+import { Layout } from "./components/layout";
 import { App } from "./features/app";
-import { Layout } from "./layout";
 
 const app = new Hono();
 
@@ -17,14 +17,15 @@ app.get(
   reactRenderer(Layout, {
     stream: true,
     readableStreamOptions: {
-      ...(process.env.NODE_ENV === "production" ? {
-        bootstrapScripts: ["/static/client.js"]
-      } : {
-        bootstrapModules: ["/src/client.tsx"]
-      })
-      ,
+      ...(process.env.NODE_ENV === "production"
+        ? {
+            bootstrapScripts: ["/static/client.js"],
+          }
+        : {
+            bootstrapModules: ["/src/client.tsx"],
+          }),
     },
-  })
+  }),
 );
 
 app.get("/", async (c) => {
