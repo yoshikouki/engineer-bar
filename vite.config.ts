@@ -22,7 +22,9 @@ export default defineConfig(({ mode }) => {
     };
   }
   return {
+    build: { manifest: true },
     server: {
+      origin: "http://localhost:8888",
       proxy: {
         "^/$": {
           target: "http://localhost:8888",
