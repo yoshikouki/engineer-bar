@@ -1,15 +1,12 @@
-import * as React from "react";
-import { createRoot } from "react-dom/client";
+import { hydrateRoot } from "react-dom/client";
 import "vite/modulepreload-polyfill";
+
 import { App } from "./features/app";
+import { Layout } from "./layout";
 
-const rootElement = document.getElementById("root");
-if (!rootElement) {
-  throw new Error("No root element found");
-}
-
-createRoot(rootElement).render(
-  <React.StrictMode>
+hydrateRoot(
+  document,
+  <Layout>
     <App />
-  </React.StrictMode>,
+  </Layout>
 );

@@ -12,19 +12,18 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         {process.env.NODE_ENV === "production" ? (
           <>
-            <link href="/static/index.css" rel="stylesheet" />
+            <link href="/static/assets/client.css" rel="stylesheet" />
             <script type="module" src="/static/client.js" />
           </>
         ) : (
           <>
             <link href="/src/index.css" rel="stylesheet" />
-            <script type="module" src="/src/client.tsx" />
             <script type="module" src="/@vite/client" />
           </>
         )}
       </head>
       <body>
-        <div>{children}</div>
+        <main>{children}</main>
       </body>
     </html>
   );

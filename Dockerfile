@@ -40,7 +40,7 @@ RUN bun run build
 FROM base
 
 # Copy built application
-COPY --from=build /app/index /app/index
+COPY --from=build /app/src/index /app/index
 COPY --from=build /app/public /app/public
 COPY --from=build /app/dist /app/public
 

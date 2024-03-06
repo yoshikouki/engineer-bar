@@ -9,13 +9,13 @@
     "dev:server": "bun --bun run --watch src/index.tsx",
     "build": "bun run build:client && bun run build:sever",
     "build:client": "NODE_ENV=production vite build --mode client",
-    "build:sever": "NODE_ENV=production bun build --compile src/index.tsx",
+    "build:sever": "NODE_ENV=production bun build --outfile index --compile src/index.tsx",
     "start": "bun --bun run src/index.tsx",
     "lint": "bun --bun x @biomejs/biome check .",
     "lint:fix": "bun --bun x @biomejs/biome check --apply ."
   },
   "dependencies": {
-    "@hono/react-renderer": "^0.0.2",
+    "@hono/react-renderer": "0.1.0",
     "@radix-ui/react-slot": "^1.0.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",

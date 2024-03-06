@@ -3,6 +3,7 @@ import { Hono } from "hono";
 import { serveStatic } from "hono/bun";
 import { logger } from "hono/logger";
 
+import { App } from "./features/app";
 import { Layout } from "./layout";
 
 const app = new Hono();
@@ -11,10 +12,23 @@ app.use(logger());
 
 app.get("/static/*", serveStatic({ root: "./public" }));
 app.get("/favicon.*", serveStatic({ root: "public", path: "favicon.svg" }));
-app.get("*", reactRenderer(Layout));
+app.get(
+  "*",
+  reactRenderer(Layout, {
+    stream: true,
+    readableStreamOptions: {
+      ...(process.env.NODE_ENV === "production" ? {
+        bootstrapScripts: ["/static/client.js"]
+      } : {
+        bootstrapModules: ["/src/client.tsx"]
+      })
+      ,
+    },
+  })
+);
 
 app.get("/", async (c) => {
-  return c.render(<div id="root" />);
+  return c.render(<App />);
 });
 
 const port = process.env.PORT || "8888";
