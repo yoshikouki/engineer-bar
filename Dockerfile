@@ -40,10 +40,10 @@ RUN bun run build
 FROM base
 
 # Copy built application
-COPY --from=build /app/server /app/server
+COPY --from=build /app/index /app/index
 COPY --from=build /app/public /app/public
 COPY --from=build /app/dist /app/public
 
 # Start the server by default, this can be overwritten at runtime
 EXPOSE 3000
-CMD [ "./server" ]
+CMD [ "./index" ]

@@ -1,6 +1,7 @@
 import * as React from "react";
 import { createRoot } from "react-dom/client";
-import { App } from "./app";
+import "vite/modulepreload-polyfill";
+import { App } from "./features/app";
 
 const rootElement = document.getElementById("root");
 if (!rootElement) {
