@@ -1,5 +1,7 @@
 import React from "react";
 
+import "./index.css";
+
 export const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="ja">
@@ -9,9 +11,13 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
         <title>エンジニアBar</title>
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         {process.env.NODE_ENV === "production" ? (
-          <script type="module" src="/static/client.js" />
+          <>
+            <link href="/static/index.css" rel="stylesheet" />
+            <script type="module" src="/static/client.js" />
+          </>
         ) : (
           <>
+            <link href="/src/index.css" rel="stylesheet" />
             <script type="module" src="/src/client.tsx" />
             <script type="module" src="/@vite/client" />
           </>

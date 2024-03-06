@@ -1,6 +1,7 @@
-import type http from 'http';
+import type http from "http";
 import { minimatch } from "minimatch";
-import { Connect, ViteDevServer, defineConfig, type Plugin } from "vite";
+import { Connect, type Plugin, ViteDevServer, defineConfig } from "vite";
+import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig(({ mode }) => {
   if (mode === "client") {
@@ -19,6 +20,7 @@ export default defineConfig(({ mode }) => {
         copyPublicDir: false,
         sourcemap: true,
       },
+      plugins: [tsconfigPaths()],
     };
   }
   return {
@@ -34,7 +36,7 @@ export default defineConfig(({ mode }) => {
         ignored: [],
       },
     },
-    plugins: [devServer()],
+    plugins: [tsconfigPaths(), devServer()],
   };
 });
 
@@ -46,7 +48,7 @@ function devServer(): Plugin {
         async (
           req: http.IncomingMessage,
           res: http.ServerResponse,
-          next: Connect.NextFunction
+          next: Connect.NextFunction,
         ) => {
           const exclude = [
             /.*\.ts$/,
@@ -70,7 +72,7 @@ function devServer(): Plugin {
           }
 
           next();
-        }
+        },
       );
     },
   };
