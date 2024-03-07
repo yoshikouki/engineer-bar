@@ -1,6 +1,7 @@
 import React from "react";
 
 import "../index.css";
+import { Header } from "./header";
 import { ThemeProvider } from "./theme-provider";
 
 export const Layout = ({ children }: { children: React.ReactNode }) => {
@@ -25,7 +26,10 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
       </head>
       <body>
         <ThemeProvider defaultTheme="dark" storageKey="ui-theme">
-          <main>{children}</main>
+          <div className="flex flex-col items-center">
+            <Header />
+            <main>{children}</main>
+          </div>
         </ThemeProvider>
       </body>
     </html>
