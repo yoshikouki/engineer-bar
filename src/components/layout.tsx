@@ -2,6 +2,7 @@ import React from "react";
 
 import "../index.css";
 import { Header } from "./header";
+import { MainNav } from "./main-nav";
 import { ThemeProvider } from "./theme-provider";
 
 export const Layout = ({ children }: { children: React.ReactNode }) => {
@@ -28,6 +29,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
         <ThemeProvider defaultTheme="dark" storageKey="ui-theme">
           <div className="flex flex-col items-center">
             <Header />
+            <MainNav />
             <main>{children}</main>
           </div>
         </ThemeProvider>
