@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "bun --bun x concurrently --prefix-colors 'auto' --names 'CLIENT,SERVER' 'bun dev:client' 'bun dev:server'",
     "dev:client": "bun --bun x vite",
-    "dev:server": "bun --bun run --watch src/index.tsx",
+    "dev:server": "bun --bun run --hot src/index.tsx",
     "build": "bun run build:client && bun run build:sever",
     "build:client": "NODE_ENV=production vite build --mode client",
     "build:sever": "NODE_ENV=production bun build --outfile index --compile src/index.tsx",
