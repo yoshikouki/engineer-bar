@@ -31,7 +31,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
           <div className="flex flex-col items-center">
             <Header />
             <MainNav />
-            <main>{children}</main>
+            <main className="w-full">{children}</main>
             <Footer />
           </div>
         </ThemeProvider>

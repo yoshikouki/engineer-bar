@@ -3,6 +3,7 @@
     "7": {
       "id": 7,
       "name": "エンジニア Bar #7 桜島を眺めながらのんびり語ろう",
+      "sub_title": "桜島を眺めながらのんびり語ろう",
       "url": "https://engineer-bar.connpass.com/event/311196/",
       "start_time": "2024-03-21T19:00:00+09:00",
       "end_time": "2024-03-21T21:00:00+09:00",
@@ -37,6 +38,7 @@
     "6": {
       "id": 6,
       "name": "エンジニア Bar #6 with 忘年会",
+      "sub_title": "with 忘年会",
       "url": "https://engineer-bar.connpass.com/event/301247/",
       "start_time": "2023-12-08T21:00:00+09:00",
       "end_time": "2023-12-08T23:00:00+09:00",
@@ -52,6 +54,7 @@
     "5": {
       "id": 5,
       "name": "エンジニア Bar #5 with メタバース",
+      "sub_title": "with メタバース",
       "url": "https://engineer-bar.connpass.com/event/281127/",
       "start_time": "2023-05-24T19:00:00+09:00",
       "end_time": "2023-05-24T21:00:00+09:00",
@@ -129,41 +132,49 @@
     "1": {
       "id": 1,
       "name": "ライカワークラウンジ",
+      "short_name": "ライカワークラウンジ",
       "url": "https://lit.link/5thfloor/"
     },
     "2": {
       "id": 2,
       "name": "GMOペパボ株式会社",
+      "short_name": "GMOペパボ",
       "url": "https://pepabo.com/"
     },
     "3": {
       "id": 3,
       "name": "株式会社現場サポート",
+      "short_name": "現場サポート",
       "url": "https://www.genbasupport.com/"
     },
     "4": {
       "id": 4,
       "name": "アプリファクトリー はるni株式会社",
+      "short_name": "アプリファクトリー はるni",
       "url": "https://haru-ni.net/"
     },
     "5": {
       "id": 5,
       "name": "HITTOBE powered by The Company",
+      "short_name": "HITTOBE",
       "url": "https://hittobe.jp/"
     },
     "6": {
       "id": 6,
       "name": "京セラコミュニケーションシステム株式会社",
+      "short_name": "KCCS",
       "url": "https://www.kccs.co.jp/"
     },
     "7": {
       "id": 7,
       "name": "ヘッジホッグ.exe合同会社",
+      "short_name": "ヘッジホッグ.exe",
       "url": "https://hhg-exe.jp/"
     },
     "8": {
       "id": 8,
       "name": "株式会社ユニマル unimal Co.,Ltd.",
+      "short_name": "unimal",
       "url": "https://unimal.jp/"
     }
   }

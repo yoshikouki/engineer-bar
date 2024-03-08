@@ -17,12 +17,14 @@ export const Segment = z.object({
 export const Supporter = z.object({
   id: z.number(),
   name: z.string(),
+  short_name: z.string(),
   url: z.string().url(),
 });
 
 export const Event = z.object({
   id: z.number(),
   name: z.string(),
+  sub_title: z.string().optional(),
   url: z.string().url(),
   start_time: z.coerce.date(),
   end_time: z.coerce.date(),
