@@ -1,3 +1,4 @@
+import { EventList } from "./event-list";
 
 export const App = () => {
   return (
@@ -13,6 +14,8 @@ export const App = () => {
           ゆるく集まるコミュニティ
         </p>
       </div>
+
+      <EventList />
     </div>
   );
 };
