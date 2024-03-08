@@ -1,6 +1,7 @@
 import React from "react";
 
 import "../index.css";
+import { Footer } from "./footer";
 import { Header } from "./header";
 import { MainNav } from "./main-nav";
 import { ThemeProvider } from "./theme-provider";
@@ -31,6 +32,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
             <Header />
             <MainNav />
             <main>{children}</main>
+            <Footer />
           </div>
         </ThemeProvider>
       </body>
