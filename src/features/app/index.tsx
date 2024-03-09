@@ -2,7 +2,7 @@ import { EventList } from "./event-list";
 
 export const App = () => {
   return (
-    <div className="flex flex-col gap-8 w-full">
+    <>
       <div className="min-h-svh flex flex-col justify-center items-center p-4 gap-4">
         <h2 className="font-black text-5xl text-primary">Engineer Bar</h2>
         <p>
@@ -16,6 +16,6 @@ export const App = () => {
       </div>
 
       <EventList />
-    </div>
+    </>
   );
 };

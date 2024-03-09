@@ -11,23 +11,25 @@ export const MainNav = () => {
   }, []);
 
   return (
-    <>
-      {currentPath.startsWith("/app") && (
-        <nav className="fixed bottom-0 z-10 max-w-md w-screen flex justify-between py-8 pointer-events-none">
-          <Button className="pointer-events-auto px-4 py-8" variant="ghost">
-            <span className="mr-2">
-              <Maximize />
-            </span>
-            Global
-          </Button>
-          <Button className="pointer-events-auto px-4 py-8" variant="ghost">
-            <span className="mr-2">
-              <Minimize />
-            </span>
-            Local
-          </Button>
-        </nav>
-      )}
-    </>
+    <nav className="fixed bottom-0 z-10 w-full pointer-events-none flex justify-center">
+      <div className="flex justify-between py-8 max-w-md w-screen">
+        {currentPath.startsWith("/app") && (
+          <>
+            <Button className="pointer-events-auto px-4 py-8" variant="ghost">
+              <span className="mr-2">
+                <Maximize />
+              </span>
+              Global
+            </Button>
+            <Button className="pointer-events-auto px-4 py-8" variant="ghost">
+              <span className="mr-2">
+                <Minimize />
+              </span>
+              Local
+            </Button>
+          </>
+        )}
+      </div>
+    </nav>
   );
 };

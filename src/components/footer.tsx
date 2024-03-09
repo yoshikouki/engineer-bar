@@ -3,21 +3,33 @@ import { Button } from "./ui/button";
 
 export const Footer = () => {
   return (
-    <footer className="my-40 w-full text-muted-foreground">
-      <div className="flex flex-col items-center p-4 gap-4 text-sm">
+    <footer className="my-40 w-full">
+      <div className="flex flex-col items-center gap-4">
         <div className="flex gap-8">
           <Button asChild variant="ghost" size="icon">
-            <a href="https://x.com/yoshikouki_">
+            <a
+              href="https://x.com/yoshikouki_"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <AtSign />
             </a>
           </Button>
           <Button asChild variant="ghost" size="icon">
-            <a href="https://github.com/yoshikouki/engineer-bar">
+            <a
+              href="https://github.com/yoshikouki/engineer-bar"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <GitPullRequestArrow />
             </a>
           </Button>
           <Button asChild variant="ghost" size="icon">
-            <a href="https://github.com/yoshikouki/engineer-bar/issues/new">
+            <a
+              href="https://github.com/yoshikouki/engineer-bar/issues/new"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <MessageCircle />
             </a>
           </Button>
@@ -28,7 +40,13 @@ export const Footer = () => {
           size="sm"
           className="text-muted-foreground"
         >
-          <a href="https://engineer-bar.connpass.com/">© 2021 Engineer Bar</a>
+          <a
+            href="https://engineer-bar.connpass.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            © 2021 Engineer Bar
+          </a>
         </Button>
       </div>
     </footer>

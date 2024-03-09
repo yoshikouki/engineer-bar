@@ -28,12 +28,10 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
       </head>
       <body>
         <ThemeProvider defaultTheme="dark" storageKey="ui-theme">
-          <div className="flex flex-col items-center">
-            <Header />
-            <MainNav />
-            <main className="w-full">{children}</main>
-            <Footer />
-          </div>
+          <Header />
+          <MainNav />
+          <main className="w-full">{children}</main>
+          <Footer />
         </ThemeProvider>
       </body>
     </html>
