@@ -39,9 +39,6 @@ export const BarEvent = z.object({
   supporters: z.array(z.number()),
 });
 export type BarEvent = z.infer<typeof BarEvent>;
-export type BarEventWithSupporters = Omit<BarEvent, "supporters"> & {
-  supporters: Supporter[];
-};
 
 export const Data = z.object({
   events: z.record(BarEvent),

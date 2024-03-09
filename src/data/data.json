@@ -11,7 +11,7 @@
       "participants_count": 17,
       "location": {
         "name": "イイテラス 11F",
-        "address": "〒890-0054 鹿児島県鹿児島市荒田１丁目１６−７"
+        "address": "鹿児島県鹿児島市荒田1丁目16-7"
       },
       "segments": [
         {
@@ -46,7 +46,7 @@
       "participants_count": 11,
       "location": {
         "name": "GMOペパボ 鹿児島オフィス",
-        "address": "鹿児島県鹿児島市上荒田町3−1"
+        "address": "鹿児島県鹿児島市上荒田町3-1"
       },
       "segments": [],
       "supporters": [2]
@@ -62,7 +62,7 @@
       "participants_count": 22,
       "location": {
         "name": "ライカワークラウンジ",
-        "address": "鹿児島県鹿児島市中央町１９−４０"
+        "address": "鹿児島県鹿児島市中央町19-40"
       },
       "segments": [],
       "supporters": [7, 1]
@@ -77,7 +77,7 @@
       "participants_count": 13,
       "location": {
         "name": "ライカワークラウンジ",
-        "address": "鹿児島県鹿児島市中央町１９−４０"
+        "address": "鹿児島県鹿児島市中央町19-40"
       },
       "segments": [],
       "supporters": [6, 1]
@@ -107,7 +107,7 @@
       "participants_count": 18,
       "location": {
         "name": "ライカワークラウンジ",
-        "address": "鹿児島県鹿児島市中央町１９−４０"
+        "address": "鹿児島県鹿児島市中央町19-40"
       },
       "segments": [],
       "supporters": [3, 1]
@@ -122,7 +122,7 @@
       "participants_count": 20,
       "location": {
         "name": "ライカワークラウンジ",
-        "address": "鹿児島県鹿児島市中央町１９−４０"
+        "address": "鹿児島県鹿児島市中央町19-40"
       },
       "segments": [],
       "supporters": [2, 1]
