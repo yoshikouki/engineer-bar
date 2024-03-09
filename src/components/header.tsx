@@ -13,12 +13,12 @@ export const Header = () => {
   const { theme, setTheme } = useTheme();
   return (
     <header className="fixed top-0 z-10 max-w-md w-screen flex justify-between p-4 pointer-events-none">
-      <a href="/" className="flex items-center pointer-events-auto">
-        <h1 className="inline-flex justify-center items-center">
+      <a href="/" className="pointer-events-auto">
+        <h1 className="flex items-center text-primary">
           <Logo />
         </h1>
       </a>
-      <div className="pointer-events-auto text-muted-foreground">
+      <div className="pointer-events-auto">
         <DropdownMenu>
           <DropdownMenuTrigger className="flex justify-center items-center">
             <Settings />
@@ -27,7 +27,7 @@ export const Header = () => {
             <DropdownMenuRadioGroup
               value={theme}
               onValueChange={(string) => setTheme(string as Theme)}
-              className="text-muted-foreground"
+              className="text-foreground"
             >
               <DropdownMenuRadioItem value="light">Light</DropdownMenuRadioItem>
               <DropdownMenuRadioItem value="dark">Dark</DropdownMenuRadioItem>
