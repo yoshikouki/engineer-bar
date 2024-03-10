@@ -5,6 +5,7 @@ import { logger } from "hono/logger";
 
 import { Layout } from "./components/layout";
 import { App } from "./features/app";
+import { Lobby } from "./features/lobby";
 
 const app = new Hono();
 
@@ -28,9 +29,14 @@ app.get(
   }),
 );
 
-app.get("/", async (c) => {
-  return c.render(<App />);
-});
+app
+  .get("/", async (c) => {
+    return c.render(<App />);
+  })
+  .get("/lobby/:eventId", async (c) => {
+    const eventId = parseInt(c.req.param("eventId"), 10);
+    return c.render(<Lobby eventId={eventId} />);
+  });
 
 const port = process.env.PORT || "8888";
 console.log(`Listening on http://localhost:${port}`);

@@ -31,6 +31,9 @@ export default defineConfig(({ mode }) => {
         "^/$": {
           target: "http://localhost:8888",
         },
+        "^/lobby/": {
+          target: "http://localhost:8888",
+        },
       },
       watch: {
         ignored: [],
