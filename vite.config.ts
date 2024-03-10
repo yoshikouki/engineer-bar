@@ -34,6 +34,10 @@ export default defineConfig(({ mode }) => {
         "^/lobby/": {
           target: "http://localhost:8888",
         },
+        "/ws": {
+          target: "ws://localhost:8888",
+          ws: true,
+        },
       },
       watch: {
         ignored: [],
