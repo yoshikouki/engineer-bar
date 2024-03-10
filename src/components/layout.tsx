@@ -1,12 +1,19 @@
 import React from "react";
 
+import { BarEventWithSupporters } from "@/hooks/use-data";
 import "../index.css";
 import { Footer } from "./footer";
 import { Header } from "./header";
 import { MainNav } from "./main-nav";
 import { ThemeProvider } from "./theme-provider";
 
-export const Layout = ({ children }: { children: React.ReactNode }) => {
+export const Layout = ({
+  children,
+  event,
+}: {
+  children: React.ReactNode;
+  event?: BarEventWithSupporters;
+}) => {
   return (
     <html lang="ja">
       <head>
@@ -28,7 +35,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
       </head>
       <body>
         <ThemeProvider defaultTheme="dark" storageKey="ui-theme">
-          <Header />
+          <Header event={event} />
           <MainNav />
           <main className="w-full">{children}</main>
           <Footer />

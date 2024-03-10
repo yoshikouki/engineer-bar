@@ -50,6 +50,26 @@ export const EventListItem = ({ event }: { event: BarEventWithSupporters }) => {
               </div>
             </div>
           </CollapsibleTrigger>
+          <CollapsibleContent className="flex flex-col gap-2">
+            <Button
+              variant="link"
+              asChild
+              className="p-0 text-foreground h-fit justify-start"
+              size="sm"
+            >
+              <a href={event.url} target="_blank" rel="noopener noreferrer">
+                <Link2 size="16" className="mr-2" />
+                <span>{new URL(event.url).host}</span>
+              </a>
+            </Button>
+            <div className="flex gap-2 items-start">
+              <MapPin size="16" className="mt-1" />
+              <span className="inline-flex flex-col">
+                <span>{event.location.name}</span>
+                <span className="text-sm">{event.location.address}</span>
+              </span>
+            </div>
+          </CollapsibleContent>
           <div className="flex items-start gap-2">
             <span className="text-foreground pt-1">
               <Handshake size="16" />
@@ -70,33 +90,25 @@ export const EventListItem = ({ event }: { event: BarEventWithSupporters }) => {
           </div>
         </CardContent>
         <CardFooter className="flex flex-col gap-2 items-start pt-2 pb-0 px-4 text-foreground">
-          <CollapsibleContent className="flex flex-col gap-2">
-            <Button
-              variant="link"
-              asChild
-              className="p-0 text-foreground h-fit justify-start"
-              size="sm"
-            >
-              <a href={event.url} target="_blank" rel="noopener noreferrer">
-                <Link2 size="16" className="mr-2" />
-                <span>{event.url}</span>
+          <div className="flex gap-2 w-full">
+            {event.isBefore && (
+              <Button variant="default" asChild>
+                <a
+                  href={event.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full"
+                >
+                  <span>Join</span>
+                </a>
+              </Button>
+            )}
+            <Button variant="ghost" asChild>
+              <a href={`/lobbies/${event.id}`} className="w-full">
+                <span>Lobby</span>
               </a>
             </Button>
-            <div className="flex gap-2 items-start">
-              <MapPin size="16" className="mt-1" />
-              <span className="inline-flex flex-col">
-                <span>{event.location.name}</span>
-                <span className="text-sm">{event.location.address}</span>
-              </span>
-            </div>
-          </CollapsibleContent>
-          {event.isBefore && (
-            <Button variant="default" asChild>
-              <a href={event.url} target="_blank" rel="noopener noreferrer">
-                <span>Join</span>
-              </a>
-            </Button>
-          )}
+          </div>
         </CardFooter>
       </Card>
     </Collapsible>
