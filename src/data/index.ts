@@ -1,7 +1,6 @@
 import { z } from "zod";
 
 import rawJSON from "@/data/data.json";
-import { BarEvent } from "./index";
 
 export const Location = z.object({
   name: z.string(),
