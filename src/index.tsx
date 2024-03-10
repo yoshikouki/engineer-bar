@@ -2,6 +2,7 @@ import { reactRenderer } from "@hono/react-renderer";
 import { Hono } from "hono";
 import { serveStatic } from "hono/bun";
 import { logger } from "hono/logger";
+import { secureHeaders } from "hono/secure-headers";
 
 import { Layout } from "./components/layout";
 import { App } from "./features/app";
@@ -12,6 +13,7 @@ const app = new Hono();
 
 const { upgradeWebSocket, websocket } = createBunWebSocket();
 
+app.use(secureHeaders());
 app.use(logger());
 
 app.get("/static/*", serveStatic({ root: "./public" }));
