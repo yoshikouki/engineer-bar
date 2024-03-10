@@ -1,7 +1,6 @@
 import { hydrateRoot } from "react-dom/client";
 import "vite/modulepreload-polyfill";
 
-import { Layout } from "./components/layout";
 import { App } from "./features/app";
 import { Lobby } from "./features/lobby";
 import { extractId } from "./lib/route";
@@ -26,4 +25,4 @@ const detectComponent = () => {
   throw new Error("No matching component");
 };
 
-hydrateRoot(document, <Layout>{detectComponent()}</Layout>);
+hydrateRoot(document, detectComponent());

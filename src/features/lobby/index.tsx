@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { Layout } from "@/components/layout";
 
 export const Lobby = ({ eventId }: { eventId: number }) => {
   useEffect(() => {
@@ -19,10 +20,10 @@ export const Lobby = ({ eventId }: { eventId: number }) => {
     };
   }, []);
   return (
-    <>
-      <div className="flex flex-col justify-center items-center p-4 gap-4">
-        <h2 className="font-black text-5xl text-primary">{eventId}</h2>
+    <Layout>
+      <div className="flex flex-col justify-center items-center gap-4 mt-20 p-4">
+        <h2 className="font-black text-5xl text-primary">#{eventId}</h2>
       </div>
-    </>
+    </Layout>
   );
 };

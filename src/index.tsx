@@ -4,7 +4,6 @@ import { serveStatic } from "hono/bun";
 import { logger } from "hono/logger";
 import { secureHeaders } from "hono/secure-headers";
 
-import { Layout } from "./components/layout";
 import { App } from "./features/app";
 import { Lobby } from "./features/lobby";
 import { createBunWebSocket } from "./websocket";
@@ -20,7 +19,7 @@ app.get("/static/*", serveStatic({ root: "./public" }));
 app.get("/favicon.*", serveStatic({ root: "public", path: "favicon.svg" }));
 app.get(
   "*",
-  reactRenderer(Layout, {
+  reactRenderer(({ children }) => children, {
     stream: true,
     readableStreamOptions: {
       ...(process.env.NODE_ENV === "production"
