@@ -36,7 +36,7 @@ const routes = app
   .get("/", async (c) => {
     return c.render(<App />);
   })
-  .get("/lobby/:eventId", async (c) => {
+  .get("/lobbies/:eventId", async (c) => {
     const eventId = parseInt(c.req.param("eventId"), 10);
     return c.render(<Lobby eventId={eventId} />);
   })

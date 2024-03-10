@@ -8,8 +8,8 @@ import { extractId } from "./lib/route";
 
 const hydrationComponents = [
   {
-    pathRegExp: /^\/lobby\/(\d+)$/,
-    onRender: () => <Lobby eventId={extractId(/^\/lobby\/(\d+)$/)} />,
+    pathRegExp: /^\/lobbies\/(\d+)$/,
+    onRender: () => <Lobby eventId={extractId(/^\/lobbies\/(\d+)$/)} />,
   },
   {
     pathRegExp: /^\/$/,

@@ -31,7 +31,7 @@ export default defineConfig(({ mode }) => {
         "^/$": {
           target: "http://localhost:8888",
         },
-        "^/lobby/": {
+        "^/lobbies/": {
           target: "http://localhost:8888",
         },
         "/ws": {
