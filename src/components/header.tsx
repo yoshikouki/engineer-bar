@@ -15,24 +15,25 @@ export const Header = ({ event }: { event?: BarEventWithSupporters }) => {
   return (
     <header className="fixed top-0 z-10 w-full pointer-events-none flex justify-center">
       <div className="flex justify-between items-center max-w-md w-full p-4">
-        <a href="/" className="pointer-events-auto">
-          <h1 className="flex items-center text-primary gap-2">
+        <h1 className="flex items-center text-primary gap-2">
+          <a href="/" className="pointer-events-auto">
             <Logo />
-            {event && (
-              <a
-                href={event.supporters[0]?.url}
-                className="inline-flex items-baseline gap-1"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <span className="text-foreground text-base">feat.</span>
-                <span className="text-2xl font-black">
-                  {event.supporters[0]?.short_name}
-                </span>
-              </a>
-            )}
-          </h1>
-        </a>
+            <span className="sr-only">エンジニアBar</span>
+          </a>
+          {event && (
+            <a
+              href={event.supporters[0]?.url}
+              className="inline-flex items-baseline gap-1"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span className="text-foreground text-base">feat.</span>
+              <span className="text-2xl font-black">
+                {event.supporters[0]?.short_name}
+              </span>
+            </a>
+          )}
+        </h1>
         <div className="pointer-events-auto">
           <DropdownMenu>
             <DropdownMenuTrigger className="flex justify-center items-center">
