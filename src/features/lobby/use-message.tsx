@@ -1,6 +1,15 @@
 import { BarEventWithSupporters } from "@/hooks/use-data";
 import { useEffect, useRef, useState } from "react";
-import { LobbyApp, Message, User } from "./lobby-app";
+
+export type Message = {
+  id: string;
+  content: string;
+  user: User;
+};
+
+export type User = {
+  id: string;
+};
 
 const initUser = () => {
   const cachedUser = localStorage.getItem("user");
@@ -15,15 +24,18 @@ const initUser = () => {
 export const useMessage = ({ event }: { event: BarEventWithSupporters }) => {
   const [user, setUser] = useState<User>();
 
-  const app = useRef<LobbyApp>();
+  const socketRef = useRef<WebSocket>();
+  const [isOpen, setIsOpen] = useState(false);
+  const [isWaitingToReconnect, setIsWaitingToReconnect] = useState(false);
+
   const [newMessage, setNewMessage] = useState("");
   const [messages, setMessages] = useState<Message[]>([]);
   const onChangeNewMessage = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewMessage(e.target.value);
   };
   const onSendMessage = () => {
-    if (!app.current) return;
-    app.current.sendMessage(newMessage);
+    if (!socketRef.current) return;
+    socketRef.current.send(newMessage);
     setMessages([...messages]);
     setNewMessage("");
   };
@@ -32,18 +44,44 @@ export const useMessage = ({ event }: { event: BarEventWithSupporters }) => {
     if (!user) {
       setUser(initUser);
     }
-    if (user) {
-      app.current = new LobbyApp({
-        user,
-        event,
-        onMessageComing: (message) => {
-          setMessages([...messages, message]);
-        },
+    if (isWaitingToReconnect) {
+      return;
+    }
+    if (!socketRef.current) {
+      const socket = new WebSocket("ws://localhost:8888/ws");
+      socketRef.current = socket;
+
+      socket.addEventListener("open", () => {
+        setIsOpen(true);
+        console.log("WebSocket is connected.");
+      });
+      socket.addEventListener("message", (event) => {
+        const message: Message = JSON.parse(event.data);
+        setMessages([...messages, message]);
+      });
+      socket.addEventListener("close", () => {
+        if (socketRef.current) {
+          console.log("WebSocket is closed by server. Reconnect in 5 seconds.");
+        } else {
+          console.log("WebSocket closed by app component unmount");
+          return;
+        }
+        if (isWaitingToReconnect) {
+          return;
+        }
+        setIsOpen(false);
+        setIsWaitingToReconnect(true);
+        setTimeout(() => {
+          console.log("Reconnecting...");
+          setIsWaitingToReconnect(false);
+        }, 5000);
+        console.log("disconnected");
+      });
+      socket.addEventListener("error", (error) => {
+        console.error("Error", error);
       });
     }
-    return () => {
-      app.current?.close();
-    };
-  }, [event, user, messages]);
+  }, [user, messages, isWaitingToReconnect]);
+
   return { newMessage, messages, onChangeNewMessage, onSendMessage };
 };

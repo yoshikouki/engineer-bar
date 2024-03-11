@@ -50,7 +50,7 @@ export class LobbyApp {
 
   private onMessageEvent = (event: MessageEvent) => {
     if (!this.onMessageComing) return;
-    console.log("onMessageEvent: event.data:", event.data);
+    console.log("onMessage: event.data:", event.data);
     const message: Message = JSON.parse(event.data);
     this.onMessageComing(message);
   };

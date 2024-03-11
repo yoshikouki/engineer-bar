@@ -6,7 +6,7 @@ import { secureHeaders } from "hono/secure-headers";
 
 import { App } from "./features/app";
 import { Lobby } from "./features/lobby";
-import { createBunWebSocket } from "./websocket";
+import { WSContext, createBunWebSocket } from "./websocket";
 
 const app = new Hono();
 
@@ -44,19 +44,28 @@ const routes = app
   .get(
     "/ws",
     upgradeWebSocket((c) => {
-      let intervalId: number;
+      const connections: WSContext[] = [];
       return {
         onOpen(event, ws) {
+          connections.push(ws);
+          console.log("onOpen: connections:", connections.length);
           console.log("connected");
         },
         onMessage(event, ws) {
-          console.log("onMessage: event.data:", event.data);
-          ws.send(
-            JSON.stringify({ id: crypto.randomUUID(), content: event.data }),
-          );
+          console.log("onMessage: connections:", connections.length);
+          for (const conn of connections) {
+            if (conn !== ws) {
+              conn.send(
+                JSON.stringify({
+                  id: crypto.randomUUID(),
+                  content: event.data,
+                }),
+              );
+            }
+          }
         },
         onClose() {
-          clearInterval(intervalId);
+          console.log("disconnected");
         },
       };
     }),
