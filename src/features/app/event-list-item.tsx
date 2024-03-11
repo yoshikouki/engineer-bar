@@ -46,7 +46,7 @@ export const EventListItem = ({ event }: { event: BarEventWithSupporters }) => {
               </div>
               <div className="flex items-center gap-2">
                 <Calendar size="16" />
-                <span>{toYMD(event.start_time)}</span>
+                <span className="tabular-nums">{toYMD(event.start_time)}</span>
               </div>
             </div>
           </CollapsibleTrigger>
