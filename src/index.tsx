@@ -46,10 +46,14 @@ const routes = app
     upgradeWebSocket((c) => {
       let intervalId: number;
       return {
-        onOpen(evt, ws) {
-          intervalId = setInterval(() => {
-            ws.send(new Date().toString());
-          }, 200) as unknown as number;
+        onOpen(event, ws) {
+          console.log("connected");
+        },
+        onMessage(event, ws) {
+          console.log("onMessage: event.data:", event.data);
+          ws.send(
+            JSON.stringify({ id: crypto.randomUUID(), content: event.data }),
+          );
         },
         onClose() {
           clearInterval(intervalId);

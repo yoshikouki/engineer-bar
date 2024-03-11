@@ -2,6 +2,7 @@ import { Layout } from "@/components/layout";
 import { useData } from "@/hooks/use-data";
 import { toHM, toYMD } from "@/lib/format";
 import { Clock8 } from "lucide-react";
+import { LobbyChat } from "./lobby-chat";
 import { LobbyStatus } from "./lobby-status";
 
 export const Lobby = ({ eventId }: { eventId: number }) => {
@@ -45,6 +46,7 @@ export const Lobby = ({ eventId }: { eventId: number }) => {
         </div>
 
         <LobbyStatus event={event} />
+        <LobbyChat event={event} />
       </div>
     </Layout>
   );
