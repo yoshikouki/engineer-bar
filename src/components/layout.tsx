@@ -1,6 +1,7 @@
 import React from "react";
 
 import { BarEventWithSupporters } from "@/hooks/use-data";
+import { cn } from "@/lib/utils";
 import "../index.css";
 import { Footer } from "./footer";
 import { Header } from "./header";
@@ -10,9 +11,11 @@ import { ThemeProvider } from "./theme-provider";
 export const Layout = ({
   children,
   event,
+  className,
 }: {
   children: React.ReactNode;
   event?: BarEventWithSupporters;
+  className?: string;
 }) => {
   return (
     <html lang="ja">
@@ -37,7 +40,7 @@ export const Layout = ({
         <ThemeProvider defaultTheme="dark" storageKey="ui-theme">
           <Header event={event} />
           <MainNav />
-          <main className="w-full">{children}</main>
+          <main className={cn("w-full", className)}>{children}</main>
           <Footer />
         </ThemeProvider>
       </body>
