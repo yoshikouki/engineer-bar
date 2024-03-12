@@ -47,7 +47,7 @@ export const useMessage = ({ event }: { event: BarEventWithSupporters }) => {
     if (isWaitingToReconnect) {
       return;
     }
-    if (!socketRef.current) {
+    if (!(socketRef.current && isOpen)) {
       const socket = new WebSocket("ws://localhost:8888/ws");
       socketRef.current = socket;
 
@@ -82,7 +82,7 @@ export const useMessage = ({ event }: { event: BarEventWithSupporters }) => {
         console.error("Error", error);
       });
     }
-  }, [user, isWaitingToReconnect]);
+  }, [user, isWaitingToReconnect, isOpen]);
 
   return { newMessage, messages, onChangeNewMessage, onSendMessage };
 };
