@@ -37,7 +37,9 @@ export const useWebSocket = (props: UseWebSocketProps) => {
       return;
     }
 
-    let url = import.meta.env.VITE_WEBSOCKET_URL || "ws://localhost:8888/ws";
+    let url = import.meta.env.DEV
+      ? "ws://localhost:8888/ws"
+      : "wss://engineer-bar.fly.dev/ws";
     if (props?.url?.queries) {
       url += `?${convertQueries(props.url.queries)}`;
     }
