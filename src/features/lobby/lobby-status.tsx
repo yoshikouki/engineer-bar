@@ -27,7 +27,7 @@ export const LobbyStatus = ({ event }: { event: BarEventWithSupporters }) => {
   }, []);
 
   return intervalRef.current && currentSegment ? (
-    <div className="flex flex-col gap-2 items-start">
+    <div className="flex flex-col items-start gap-2">
       <h3 className="font-black text-2xl text-primary">
         <span className="sr-only">Current segment</span>
         {currentSegment?.name}
@@ -42,14 +42,14 @@ export const LobbyStatus = ({ event }: { event: BarEventWithSupporters }) => {
       </Progress.Root>
     </div>
   ) : now < event.start_time ? (
-    <div className="flex justify-center mt-20 w-full font-black text-3xl text-primary">
+    <div className="mt-20 flex w-full justify-center font-black text-3xl text-primary">
       Coming soon...
     </div>
   ) : event.end_time < now ? (
-    <div className="flex justify-center mt-20 w-full font-black text-3xl text-primary">
+    <div className="mt-20 flex w-full justify-center font-black text-3xl text-primary">
       完
     </div>
   ) : (
-    <Skeleton className="h-40 max-w-md w-full rounded-xl" />
+    <Skeleton className="h-40 w-full max-w-md rounded-xl" />
   );
 };

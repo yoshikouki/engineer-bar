@@ -11,24 +11,24 @@ export const Lobby = ({ eventId }: { eventId: number }) => {
 
   return (
     <Layout event={event} className="flex justify-center">
-      <div className="flex flex-col gap-20 mt-20 p-4 max-w-md w-full">
-        <div className="flex flex-col justify-center items-start gap-2">
-          <h2 className="flex gap-2 items-baseline font-black">
+      <div className="mt-20 flex w-full max-w-md flex-col gap-20 p-4">
+        <div className="flex flex-col items-start justify-center gap-2">
+          <h2 className="flex items-baseline gap-2 font-black">
             <span className="text-2xl text-primary">#{event.id}</span>
             <span className="text-base text-foreground">{event.sub_title}</span>
           </h2>
-          <div className="flex gap-1 items-center">
+          <div className="flex items-center gap-1">
             <span className="tabular-nums">{toYMD(event.start_time)}</span>
             <span className="tabular-nums">{toHM(event.start_time)}</span>-
             <span className="tabular-nums">{toHM(event.end_time)}</span>
           </div>
           {event.segments.length > 0 && (
-            <div className="flex gap-2 items-start w-full">
+            <div className="flex w-full items-start gap-2">
               <Clock8 size="24" className="mt-1" />
-              <div className="flex flex-col gap-2 w-full">
+              <div className="flex w-full flex-col gap-2">
                 {event.segments.map((segment) => (
                   <div key={segment.id} className="flex gap-2">
-                    <span className="text-foreground flex-none inline-flex gap-1">
+                    <span className="inline-flex flex-none gap-1 text-foreground">
                       <span className="tabular-nums">
                         {toHM(segment.start_time)}
                       </span>
@@ -37,7 +37,7 @@ export const Lobby = ({ eventId }: { eventId: number }) => {
                         {toHM(segment.end_time)}
                       </span>
                     </span>
-                    <span className="text-primary flex-1">{segment.name}</span>
+                    <span className="flex-1 text-primary">{segment.name}</span>
                   </div>
                 ))}
               </div>

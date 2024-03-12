@@ -13,9 +13,9 @@ import {
 export const Header = ({ event }: { event?: BarEventWithSupporters }) => {
   const { theme, setTheme } = useTheme();
   return (
-    <header className="fixed top-0 z-10 w-full pointer-events-none flex justify-center">
-      <div className="flex justify-between items-center max-w-md w-full p-4">
-        <h1 className="flex items-center text-primary gap-2">
+    <header className="pointer-events-none fixed top-0 z-10 flex w-full justify-center">
+      <div className="flex w-full max-w-md items-center justify-between p-4">
+        <h1 className="flex items-center gap-2 text-primary">
           <a href="/" className="pointer-events-auto">
             <Logo />
             <span className="sr-only">エンジニアBar</span>
@@ -27,8 +27,8 @@ export const Header = ({ event }: { event?: BarEventWithSupporters }) => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <span className="text-foreground text-base">feat.</span>
-              <span className="text-2xl font-black">
+              <span className="text-base text-foreground">feat.</span>
+              <span className="font-black text-2xl">
                 {event.supporters[0]?.short_name}
               </span>
             </a>
@@ -36,7 +36,7 @@ export const Header = ({ event }: { event?: BarEventWithSupporters }) => {
         </h1>
         <div className="pointer-events-auto">
           <DropdownMenu>
-            <DropdownMenuTrigger className="flex justify-center items-center">
+            <DropdownMenuTrigger className="flex items-center justify-center">
               <Settings />
             </DropdownMenuTrigger>
             <DropdownMenuContent>

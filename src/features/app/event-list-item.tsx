@@ -24,11 +24,11 @@ export const EventListItem = ({ event }: { event: BarEventWithSupporters }) => {
     <Collapsible
       open={isOpen}
       onOpenChange={setIsOpen}
-      className="max-w-md w-full"
+      className="w-full max-w-md"
     >
-      <Card className="flex flex-col border-none max-w-md w-full">
+      <Card className="flex w-full max-w-md flex-col border-none">
         <CollapsibleTrigger asChild>
-          <CardHeader className="pt-0 px-4 pb-2">
+          <CardHeader className="px-4 pt-0 pb-2">
             <CardTitle className="flex gap-2">
               <span className="text-primary">#{event.id}</span>
               <span className="text-base text-foreground">
@@ -37,7 +37,7 @@ export const EventListItem = ({ event }: { event: BarEventWithSupporters }) => {
             </CardTitle>
           </CardHeader>
         </CollapsibleTrigger>
-        <CardContent className="flex flex-col gap-2 text-foreground py-0 px-4">
+        <CardContent className="flex flex-col gap-2 px-4 py-0 text-foreground">
           <CollapsibleTrigger asChild>
             <div className="flex justify-between">
               <div className="flex items-center gap-2">
@@ -54,7 +54,7 @@ export const EventListItem = ({ event }: { event: BarEventWithSupporters }) => {
             <Button
               variant="link"
               asChild
-              className="p-0 text-foreground h-fit justify-start"
+              className="h-fit justify-start p-0 text-foreground"
               size="sm"
             >
               <a href={event.url} target="_blank" rel="noopener noreferrer">
@@ -62,7 +62,7 @@ export const EventListItem = ({ event }: { event: BarEventWithSupporters }) => {
                 <span>{new URL(event.url).host}</span>
               </a>
             </Button>
-            <div className="flex gap-2 items-start">
+            <div className="flex items-start gap-2">
               <MapPin size="16" className="mt-1" />
               <span className="inline-flex flex-col">
                 <span>{event.location.name}</span>
@@ -71,7 +71,7 @@ export const EventListItem = ({ event }: { event: BarEventWithSupporters }) => {
             </div>
           </CollapsibleContent>
           <div className="flex items-start gap-2">
-            <span className="text-foreground pt-1">
+            <span className="pt-1 text-foreground">
               <Handshake size="16" />
             </span>
             <span className="flex flex-col gap-2">
@@ -79,7 +79,7 @@ export const EventListItem = ({ event }: { event: BarEventWithSupporters }) => {
                 <a
                   href={supporter.url}
                   key={supporter.id}
-                  className="justify-start hover:underline text-primary"
+                  className="justify-start text-primary hover:underline"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -89,8 +89,8 @@ export const EventListItem = ({ event }: { event: BarEventWithSupporters }) => {
             </span>
           </div>
         </CardContent>
-        <CardFooter className="flex flex-col gap-2 items-start pt-2 pb-0 px-4 text-foreground">
-          <div className="flex gap-2 w-full">
+        <CardFooter className="flex flex-col items-start gap-2 px-4 pt-2 pb-0 text-foreground">
+          <div className="flex w-full gap-2">
             {event.isBefore && (
               <Button variant="default" asChild>
                 <a

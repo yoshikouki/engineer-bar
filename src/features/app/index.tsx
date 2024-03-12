@@ -4,10 +4,10 @@ import { EventList } from "./event-list";
 export const App = () => {
   return (
     <Layout>
-      <div className="min-h-svh flex flex-col justify-center items-center p-4 gap-4">
+      <div className="flex min-h-svh flex-col items-center justify-center gap-4 p-4">
         <h2 className="font-black text-5xl text-primary">Engineer Bar</h2>
         <p>
-          <span className="font-bold bg-primary text-primary-foreground px-1 mr-1">
+          <span className="mr-1 bg-primary px-1 font-bold text-primary-foreground">
             エンジニア
           </span>
           をキーワードに

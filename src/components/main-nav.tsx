@@ -11,8 +11,8 @@ export const MainNav = () => {
   }, []);
 
   return (
-    <nav className="fixed bottom-0 z-10 w-full pointer-events-none flex justify-center">
-      <div className="flex justify-between py-8 max-w-md w-screen">
+    <nav className="pointer-events-none fixed bottom-0 z-10 flex w-full justify-center">
+      <div className="flex w-screen max-w-md justify-between py-8">
         {currentPath.startsWith("/app") && (
           <>
             <Button className="pointer-events-auto px-4 py-8" variant="ghost">
