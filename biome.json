@@ -11,9 +11,8 @@
     "enabled": true,
     "rules": {
       "recommended": true,
-      "nursery": {
-        "useSortedClasses": "warn"
-      }
+      "nursery": { "useSortedClasses": "warn" },
+      "style": { "useNodejsImportProtocol": "off" }
     }
   },
   "vcs": {

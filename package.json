@@ -12,7 +12,8 @@
     "build:sever": "NODE_ENV=production bun build --outfile index --compile src/index.tsx",
     "start": "bun --bun run src/index.tsx",
     "lint": "bun --bun x @biomejs/biome check .",
-    "lint:fix": "bun --bun x @biomejs/biome check --apply ."
+    "lint:fix": "bun --bun x @biomejs/biome check --apply .",
+    "lint:fix:unsafe": "bun --bun x @biomejs/biome check --apply-unsafe ."
   },
   "dependencies": {
     "@hono/react-renderer": "0.1.0",
