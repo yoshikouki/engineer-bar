@@ -62,20 +62,19 @@ const server = Bun.serve({
   fetch: app.fetch,
   websocket: {
     open: (ws: ServerWebSocket<WebSocketData>) => {
-      console.log("ws.data:", ws.data);
       ws.subscribe("robby");
-      console.log("WebSocket is connected.");
     },
     message: (
       ws: ServerWebSocket<WebSocketData>,
       message: string | ArrayBuffer | Uint8Array,
     ) => {
+      const data = JSON.parse(message.toString());
       server.publish(
         "robby",
         JSON.stringify({
           id: crypto.randomUUID(),
-          content: message,
-          user: { id: "server" },
+          content: data.content,
+          user: data.user,
         }),
       );
     },

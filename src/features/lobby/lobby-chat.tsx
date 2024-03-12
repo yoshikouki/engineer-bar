@@ -1,11 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import type { BarEventWithSupporters } from "@/hooks/use-data";
-import { useMessage } from "./use-message";
+import { useLobby } from "./use-lobby";
 
 export const LobbyChat = ({ event }: { event: BarEventWithSupporters }) => {
-  const { newMessage, messages, onChangeNewMessage, onSendMessage } =
-    useMessage({ event });
+  const { newMessage, messages, onChangeNewMessage, onSendMessage } = useLobby({
+    event,
+  });
 
   return (
     <>
