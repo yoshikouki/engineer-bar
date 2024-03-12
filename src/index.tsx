@@ -1,17 +1,17 @@
 import { reactRenderer } from "@hono/react-renderer";
 import { Hono } from "hono";
-import { serveStatic } from "hono/bun";
+import { createBunWebSocket, serveStatic } from "hono/bun";
 import { logger } from "hono/logger";
 import { secureHeaders } from "hono/secure-headers";
 
 import { ServerWebSocket } from "bun";
+import { WSContext } from "hono/ws";
 import { App } from "./features/app";
 import { Lobby } from "./features/lobby";
-import { WSContext, createBunWebSocket } from "./websocket";
 
 const app = new Hono();
 
-const { upgradeWebSocket, websocket } = createBunWebSocket();
+const { upgradeWebSocket } = createBunWebSocket();
 
 app.use(secureHeaders());
 app.use(logger());
