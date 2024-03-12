@@ -1,4 +1,4 @@
-import { BarEvent, Supporter, data } from "@/data";
+import { type BarEvent, type Supporter, data } from "@/data";
 
 export type BarEventWithSupporters = Omit<BarEvent, "supporters"> & {
   isBefore: boolean;

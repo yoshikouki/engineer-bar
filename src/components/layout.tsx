@@ -1,6 +1,6 @@
-import React from "react";
+import type React from "react";
 
-import { BarEventWithSupporters } from "@/hooks/use-data";
+import type { BarEventWithSupporters } from "@/hooks/use-data";
 import { cn } from "@/lib/utils";
 import "../index.css";
 import { Footer } from "./footer";

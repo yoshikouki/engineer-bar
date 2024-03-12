@@ -1,4 +1,4 @@
-import { BarEventWithSupporters } from "@/hooks/use-data";
+import type { BarEventWithSupporters } from "@/hooks/use-data";
 import { useEffect, useRef, useState } from "react";
 
 export type Message = {

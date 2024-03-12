@@ -1,7 +1,7 @@
-import { BarEventWithSupporters } from "@/hooks/use-data";
+import type { BarEventWithSupporters } from "@/hooks/use-data";
 import { Settings } from "lucide-react";
 import { Logo } from "./logo";
-import { Theme, useTheme } from "./theme-provider";
+import { type Theme, useTheme } from "./theme-provider";
 import {
   DropdownMenu,
   DropdownMenuContent,

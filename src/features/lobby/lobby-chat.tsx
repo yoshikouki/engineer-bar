@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { BarEventWithSupporters } from "@/hooks/use-data";
+import type { BarEventWithSupporters } from "@/hooks/use-data";
 import { useMessage } from "./use-message";
 
 export const LobbyChat = ({ event }: { event: BarEventWithSupporters }) => {

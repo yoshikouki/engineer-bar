@@ -1,6 +1,11 @@
 import type http from "http";
 import { minimatch } from "minimatch";
-import { Connect, type Plugin, ViteDevServer, defineConfig } from "vite";
+import {
+  type Connect,
+  type Plugin,
+  type ViteDevServer,
+  defineConfig,
+} from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig(({ mode }) => {

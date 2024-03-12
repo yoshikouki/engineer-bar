@@ -1,4 +1,4 @@
-import { BarEventWithSupporters } from "@/hooks/use-data";
+import type { BarEventWithSupporters } from "@/hooks/use-data";
 
 export type Message = {
   id: string;

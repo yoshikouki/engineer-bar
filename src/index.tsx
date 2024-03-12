@@ -4,7 +4,7 @@ import { serveStatic } from "hono/bun";
 import { logger } from "hono/logger";
 import { secureHeaders } from "hono/secure-headers";
 
-import { Server, ServerWebSocket } from "bun";
+import type { Server, ServerWebSocket } from "bun";
 import { App } from "./features/app";
 import { Lobby } from "./features/lobby";
 
@@ -28,7 +28,7 @@ app.get(
             bootstrapModules: ["/src/client.tsx"],
           }),
     },
-  })
+  }),
 );
 
 const routes = app
@@ -36,7 +36,7 @@ const routes = app
     return c.render(<App />);
   })
   .get("/lobbies/:eventId", async (c) => {
-    const eventId = parseInt(c.req.param("eventId"), 10);
+    const eventId = Number.parseInt(c.req.param("eventId"), 10);
     return c.render(<Lobby eventId={eventId} />);
   })
   .get("/ws", async (c, next) => {
@@ -68,7 +68,7 @@ const server = Bun.serve({
     },
     message: (
       ws: ServerWebSocket<WebSocketData>,
-      message: string | ArrayBuffer | Uint8Array
+      message: string | ArrayBuffer | Uint8Array,
     ) => {
       server.publish(
         "robby",
@@ -76,7 +76,7 @@ const server = Bun.serve({
           id: crypto.randomUUID(),
           content: message,
           user: { id: "server" },
-        })
+        }),
       );
     },
     close: (ws: ServerWebSocket<WebSocketData>) => {
