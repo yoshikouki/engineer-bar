@@ -57,7 +57,8 @@ export const useMessage = ({ event }: { event: BarEventWithSupporters }) => {
       });
       socket.addEventListener("message", (event) => {
         const message: Message = JSON.parse(event.data);
-        setMessages([...messages, message]);
+        console.log("onMessage: message:", message);
+        setMessages((prev) => [...prev, message]);
       });
       socket.addEventListener("close", () => {
         if (socketRef.current) {
@@ -81,7 +82,7 @@ export const useMessage = ({ event }: { event: BarEventWithSupporters }) => {
         console.error("Error", error);
       });
     }
-  }, [user, messages, isWaitingToReconnect]);
+  }, [user, isWaitingToReconnect]);
 
   return { newMessage, messages, onChangeNewMessage, onSendMessage };
 };

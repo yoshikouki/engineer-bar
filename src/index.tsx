@@ -4,6 +4,7 @@ import { serveStatic } from "hono/bun";
 import { logger } from "hono/logger";
 import { secureHeaders } from "hono/secure-headers";
 
+import { ServerWebSocket } from "bun";
 import { App } from "./features/app";
 import { Lobby } from "./features/lobby";
 import { WSContext, createBunWebSocket } from "./websocket";
@@ -76,8 +77,30 @@ console.log(`Listening on http://localhost:${port}`);
 
 export type AppType = typeof routes;
 
-export default {
+const server = Bun.serve({
   port,
   fetch: app.fetch,
-  websocket,
-};
+  websocket: {
+    open: (ws: ServerWebSocket) => {
+      ws.subscribe("robby");
+      console.log("WebSocket is connected.");
+    },
+    message: (
+      ws: ServerWebSocket,
+      message: string | ArrayBuffer | Uint8Array,
+    ) => {
+      server.publish(
+        "robby",
+        JSON.stringify({
+          id: "server",
+          content: message,
+          user: { id: "server" },
+        }),
+      );
+    },
+    close: (ws: ServerWebSocket) => {
+      ws.unsubscribe("robby");
+      console.log("WebSocket is closed.");
+    },
+  },
+});
