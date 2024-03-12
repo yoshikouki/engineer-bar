@@ -32,7 +32,7 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.5.3",
+    "@biomejs/biome": "1.6.0",
     "@flydotio/dockerfile": "latest",
     "@hono/vite-dev-server": "^0.7.0",
     "@types/bun": "^1.0.7",
