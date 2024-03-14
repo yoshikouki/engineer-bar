@@ -24,7 +24,7 @@ export const Layout = ({
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>エンジニアBar</title>
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-        {process.env.NODE_ENV === "production" ? (
+        {import.meta.env.NODE_ENV === "production" ? (
           <>
             <link href="/static/assets/client.css" rel="stylesheet" />
             <script type="module" src="/static/client.js" />

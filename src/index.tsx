@@ -23,7 +23,7 @@ app.get(
   reactRenderer(({ children }) => children, {
     stream: true,
     readableStreamOptions: {
-      ...(process.env.NODE_ENV === "production"
+      ...(import.meta.env.NODE_ENV === "production"
         ? {
             bootstrapScripts: ["/static/client.js"],
           }
@@ -85,7 +85,7 @@ const routes = app
     return new Response(null);
   });
 
-const port = process.env.PORT || "8888";
+const port = import.meta.env.PORT || "8888";
 console.log(`Listening on http://localhost:${port}`);
 
 export type AppType = typeof routes;
