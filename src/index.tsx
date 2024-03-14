@@ -1,12 +1,15 @@
-import { reactRenderer } from "@hono/react-renderer";
 import { Hono } from "hono";
 import { serveStatic } from "hono/bun";
+import { getCookie, setCookie } from "hono/cookie";
+import { sign, verify } from "hono/jwt";
 import { logger } from "hono/logger";
 import { secureHeaders } from "hono/secure-headers";
+import { reactRenderer } from "./react-renderer";
 
 import type { Server, ServerWebSocket } from "bun";
 import { App } from "./features/app";
 import { Lobby } from "./features/lobby";
+import { env } from "./lib/env";
 
 const app = new Hono();
 
@@ -36,18 +39,50 @@ const routes = app
     return c.render(<App />);
   })
   .get("/lobbies/:eventId", async (c) => {
+    const accessToken = await getCookie(c, "access_token");
+    const decodedPayload =
+      accessToken && (await verify(accessToken, env.ACCESS_TOKEN_SECRET));
+    if (!decodedPayload) {
+      const newAccessToken = await sign(
+        {
+          iss: "engineer-bar",
+          sub: crypto.randomUUID(),
+          aud: "https://engineer-bar.com",
+          exp: Math.floor(Date.now() / 1000) + env.ACCESS_TOKEN_EXPIRES_IN,
+          nbf: Math.floor(Date.now() / 1000),
+          iat: Math.floor(Date.now() / 1000),
+          jti: crypto.randomUUID(),
+        },
+        env.ACCESS_TOKEN_SECRET,
+      );
+      setCookie(c, "access_token", newAccessToken, {
+        path: "/",
+        httpOnly: true,
+        maxAge: env.ACCESS_TOKEN_EXPIRES_IN,
+        sameSite: "Strict",
+        ...(env.NODE_ENV === "production" && {
+          secure: true,
+          domain: "engineer-bar.com",
+        }),
+      });
+    }
     const eventId = Number.parseInt(c.req.param("eventId"), 10);
     return c.render(<Lobby eventId={eventId} />);
   })
   .get("/ws", async (c, next) => {
+    const accessToken = await getCookie(c, "access_token");
+    const decodedPayload =
+      accessToken && (await verify(accessToken, env.ACCESS_TOKEN_SECRET));
     const server = c.env as unknown as Server;
-    const upgradeResult = server.upgrade(c.req.raw, {
-      data: {},
+    const isUpdated = server.upgrade(c.req.raw, {
+      data: {
+        userId: decodedPayload?.sub,
+      },
     });
-    if (upgradeResult) {
-      return new Response(null);
+    if (!isUpdated) {
+      return await next();
     }
-    await next(); // Failed
+    return new Response(null);
   });
 
 const port = process.env.PORT || "8888";
