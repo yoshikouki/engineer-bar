@@ -16,6 +16,10 @@ server
 public/static
 !public/static/.keep
 
+# env
+.env*
+!.env.example
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
