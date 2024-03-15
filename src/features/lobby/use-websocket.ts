@@ -9,12 +9,12 @@ type UseWebSocketProps = {
   onClose?: (event: CloseEvent) => void;
   onError?: (event: Event) => void;
 
-  onSend?: (message: Message) => void;
+  onSend?: (message: WebSocketMessage) => void;
   onReconnect?: () => void;
   onDisconnect?: () => void;
 };
 
-type Message = Record<string | number | symbol, unknown>;
+type WebSocketMessage = Record<string | number | symbol, unknown>;
 
 const convertQueries = (queries: Record<string, string | number>) => {
   const searchParams = new URLSearchParams();
@@ -26,7 +26,7 @@ const convertQueries = (queries: Record<string, string | number>) => {
 
 export const useWebSocket = (props: UseWebSocketProps) => {
   const socketRef = useRef<WebSocket>();
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<WebSocketMessage[]>([]);
 
   const isConnecting = socketRef.current !== undefined;
 
@@ -75,7 +75,7 @@ export const useWebSocket = (props: UseWebSocketProps) => {
   ]);
 
   const sendMessage = useCallback(
-    (message: Message) => {
+    (message: WebSocketMessage) => {
       if (!socketRef.current) return;
       socketRef.current.send(JSON.stringify(message));
       if (props.onSend) props.onSend(message);

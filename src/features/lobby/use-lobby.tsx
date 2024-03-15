@@ -1,51 +1,52 @@
-import type { BarEventWithSupporters } from "@/hooks/use-data";
 import { useEffect, useState } from "react";
+import { z } from "zod";
+
+import type { BarEventWithSupporters } from "@/hooks/use-data";
+import { User, useUser } from "../user/use-user";
 import { useWebSocket } from "./use-websocket";
 
-export type Message = {
-  id: string;
-  content: string;
-  user: User;
-};
-
-export type User = {
-  id: string;
-};
-
-const initUser = () => {
-  const cachedUser = localStorage.getItem("user");
-  if (cachedUser) {
-    return JSON.parse(cachedUser) as User;
-  }
-  const newUser: User = { id: Math.random().toString() };
-  localStorage.setItem("user", JSON.stringify(newUser));
-  return newUser;
-};
+const Message = z.object({
+  id: z.string(),
+  content: z.string(),
+  // オプショナルなUser
+  user: User.optional(),
+});
+export type Message = z.infer<typeof Message>;
 
 export const useLobby = ({ event }: { event: BarEventWithSupporters }) => {
-  const [user, setUser] = useState<User>();
   const [newMessage, setNewMessage] = useState("");
+  const { user } = useUser();
   const {
-    messages,
+    messages: webSocketMessages,
     connect,
     sendMessage,
     isConnecting: isOnline,
   } = useWebSocket({ url: { queries: { eventId: event.id } } });
 
+  const messages: Message[] = [];
+  for (const m of webSocketMessages) {
+    console.log(m);
+    const message = Message.safeParse(m);
+    console.log(message);
+    if (!message.success) {
+      console.error(message.error);
+      continue;
+    }
+    messages.push(message.data);
+  }
+
   const onChangeNewMessage = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewMessage(e.target.value);
   };
   const onSendMessage = () => {
+    console.log("user", user);
     sendMessage({ content: newMessage, user });
     setNewMessage("");
   };
 
   useEffect(() => {
-    if (!user) {
-      setUser(initUser);
-    }
     connect();
-  }, [user, connect]);
+  }, [connect]);
 
   return { newMessage, messages, isOnline, onChangeNewMessage, onSendMessage };
 };

@@ -14,7 +14,8 @@ export const LobbyChat = ({ event }: { event: BarEventWithSupporters }) => {
         Message
         {messages.map((message, i) => (
           <div key={message.id} className="flex gap-2">
-            {i}: <span className="text-primary">{message.content}</span>
+            {message.user?.id.slice(0, 2)}
+            <span className="text-primary">{message.content}</span>
           </div>
         ))}
       </div>

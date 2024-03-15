@@ -39,6 +39,9 @@ export default defineConfig(({ mode }) => {
         "^/lobbies/": {
           target: "http://localhost:8888",
         },
+        "^/api/": {
+          target: "http://localhost:8888",
+        },
         "/ws": {
           target: "ws://localhost:8888",
           ws: true,
