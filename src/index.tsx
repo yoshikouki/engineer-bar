@@ -1,7 +1,5 @@
 import { Hono } from "hono";
 import { serveStatic } from "hono/bun";
-import { getCookie, setCookie } from "hono/cookie";
-import { sign, verify } from "hono/jwt";
 import { logger } from "hono/logger";
 import { secureHeaders } from "hono/secure-headers";
 import { reactRenderer } from "./react-renderer";
@@ -9,7 +7,10 @@ import { reactRenderer } from "./react-renderer";
 import type { Server, ServerWebSocket } from "bun";
 import { App } from "./features/app";
 import { Lobby } from "./features/lobby";
-import { env } from "./lib/env";
+import {
+  generateAccessToken,
+  getAccessToken,
+} from "./features/user/access-token";
 
 const app = new Hono();
 
@@ -39,44 +40,35 @@ const routes = app
     return c.render(<App />);
   })
   .get("/lobbies/:eventId", async (c) => {
-    const accessToken = await getCookie(c, "access_token");
-    const decodedPayload =
-      accessToken && (await verify(accessToken, env.ACCESS_TOKEN_SECRET));
-    if (!decodedPayload) {
-      const newAccessToken = await sign(
-        {
-          iss: "engineer-bar",
-          sub: crypto.randomUUID(),
-          aud: "https://engineer-bar.com",
-          exp: Math.floor(Date.now() / 1000) + env.ACCESS_TOKEN_EXPIRES_IN,
-          nbf: Math.floor(Date.now() / 1000),
-          iat: Math.floor(Date.now() / 1000),
-          jti: crypto.randomUUID(),
-        },
-        env.ACCESS_TOKEN_SECRET,
-      );
-      setCookie(c, "access_token", newAccessToken, {
-        path: "/",
-        httpOnly: true,
-        maxAge: env.ACCESS_TOKEN_EXPIRES_IN,
-        sameSite: "Strict",
-        ...(env.NODE_ENV === "production" && {
-          secure: true,
-          domain: "engineer-bar.com",
-        }),
-      });
+    const accessToken = await getAccessToken(c);
+    if (!accessToken) {
+      await generateAccessToken(c, crypto.randomUUID());
     }
     const eventId = Number.parseInt(c.req.param("eventId"), 10);
     return c.render(<Lobby eventId={eventId} />);
   })
+  .get("/api/user", async (c) => {
+    const accessToken = await getAccessToken(c);
+    if (accessToken) {
+      return c.json({
+        id: accessToken.sub,
+      });
+    }
+    const userId = crypto.randomUUID();
+    await generateAccessToken(c, userId);
+    return c.json({
+      id: userId,
+    });
+  })
   .get("/ws", async (c, next) => {
-    const accessToken = await getCookie(c, "access_token");
-    const decodedPayload =
-      accessToken && (await verify(accessToken, env.ACCESS_TOKEN_SECRET));
+    const accessToken = await getAccessToken(c);
+    if (!accessToken) {
+      return await next();
+    }
     const server = c.env as unknown as Server;
     const isUpdated = server.upgrade(c.req.raw, {
       data: {
-        userId: decodedPayload?.sub,
+        userId: accessToken.sub,
       },
     });
     if (!isUpdated) {
