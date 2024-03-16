@@ -22,7 +22,6 @@ const initUser = async () => {
     console.error("Failed to fetch user:", res.status, res.statusText);
   }
   const newUser = await res.json();
-  console.log("newUser", newUser);
   localStorage.setItem("user", JSON.stringify(newUser));
   return newUser;
 };

@@ -8,7 +8,6 @@ import { useWebSocket } from "./use-websocket";
 const Message = z.object({
   id: z.string(),
   content: z.string(),
-  // オプショナルなUser
   user: User.optional(),
 });
 export type Message = z.infer<typeof Message>;
@@ -25,9 +24,7 @@ export const useLobby = ({ event }: { event: BarEventWithSupporters }) => {
 
   const messages: Message[] = [];
   for (const m of webSocketMessages) {
-    console.log(m);
     const message = Message.safeParse(m);
-    console.log(message);
     if (!message.success) {
       console.error(message.error);
       continue;
@@ -39,7 +36,6 @@ export const useLobby = ({ event }: { event: BarEventWithSupporters }) => {
     setNewMessage(e.target.value);
   };
   const onSendMessage = () => {
-    console.log("user", user);
     sendMessage({ content: newMessage, user });
     setNewMessage("");
   };
