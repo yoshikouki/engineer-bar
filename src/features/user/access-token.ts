@@ -13,13 +13,16 @@ export type AccessTokenPayload = {
   jti: string;
 };
 export const AccessTokenKey = "access_token";
+const domain =
+  env.NODE_ENV === "development" ? "localhost" : "engineer-bar.fly.dev";
+// env.NODE_ENV === "development" ? "localhost" : "engineer-bar.com";
 
 export const createAccessToken = async (userId: string) => {
   const newAccessToken = await sign(
     {
       iss: "engineer-bar",
       sub: userId,
-      aud: "https://engineer-bar.com",
+      aud: `https://${domain}`,
       exp: Math.floor(Date.now() / 1000) + env.ACCESS_TOKEN_EXPIRES_IN,
       nbf: Math.floor(Date.now() / 1000),
       iat: Math.floor(Date.now() / 1000),
@@ -38,7 +41,7 @@ export const setAccessToken = async (c: Context, token: string) => {
     sameSite: "Strict",
     ...(env.NODE_ENV === "production" && {
       secure: true,
-      domain: "engineer-bar.com",
+      domain,
     }),
   });
 };
@@ -71,6 +74,6 @@ export const clearAccessToken = (c: Context) => {
   deleteCookie(c, AccessTokenKey, {
     path: "/",
     secure: true,
-    domain: "example.com",
+    domain,
   });
 };
