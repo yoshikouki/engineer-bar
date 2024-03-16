@@ -6,6 +6,9 @@
 app = 'engineer-bar'
 primary_region = 'nrt'
 
+[env]
+  NODE_ENV = "production"
+
 [build]
 
 [http_service]
