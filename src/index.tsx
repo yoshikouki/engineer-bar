@@ -78,7 +78,7 @@ const routes = app
     return new Response(null);
   });
 
-const port = import.meta.env.PORT || "8888";
+const port = env.PORT || "8888";
 console.log(`Listening on http://localhost:${port}`);
 
 export type AppType = typeof routes;

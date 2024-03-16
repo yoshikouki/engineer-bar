@@ -1,3 +1,4 @@
+import { env } from "@/lib/env.client";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 type UseWebSocketProps = {
@@ -37,7 +38,7 @@ export const useWebSocket = (props: UseWebSocketProps) => {
       return;
     }
 
-    let url = import.meta.env.DEV
+    let url = env.DEV
       ? "ws://localhost:8888/ws"
       : "wss://engineer-bar.fly.dev/ws";
     if (props?.url?.queries) {
