@@ -1,6 +1,7 @@
 import type React from "react";
 
 import type { BarEventWithSupporters } from "@/hooks/use-data";
+import { env } from "@/lib/env.client";
 import { cn } from "@/lib/utils";
 import "../index.css";
 import { Footer } from "./footer";
@@ -24,7 +25,7 @@ export const Layout = ({
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>エンジニアBar</title>
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-        {import.meta.env.NODE_ENV === "development" ? (
+        {env.DEV ? (
           <>
             <link href="/src/index.css" rel="stylesheet" />
             <script type="module" src="/@vite/client" />

@@ -11,6 +11,7 @@ import {
   generateAccessToken,
   getAccessToken,
 } from "./features/user/access-token";
+import { env } from "./lib/env";
 
 const app = new Hono();
 
@@ -24,12 +25,12 @@ app.get(
   reactRenderer(({ children }) => children, {
     stream: true,
     readableStreamOptions: {
-      ...(import.meta.env.NODE_ENV === "production"
+      ...(env.DEV
         ? {
-            bootstrapScripts: ["/static/client.js"],
+            bootstrapModules: ["/src/client.tsx"],
           }
         : {
-            bootstrapModules: ["/src/client.tsx"],
+            bootstrapScripts: ["/static/client.js"],
           }),
     },
   }),

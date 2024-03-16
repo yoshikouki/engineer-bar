@@ -1,7 +1,6 @@
 import { z } from "zod";
 
 const envSchema = z.object({
-  NODE_ENV: z.enum(["development", "production", "test"]).default("production"),
   DEV: z
     .boolean()
     .optional()
@@ -12,13 +11,6 @@ const envSchema = z.object({
           import.meta.env.MODE === "development")
       );
     }),
-  PORT: z.string().default("8888"),
-  ACCESS_TOKEN_SECRET: z.string().min(32),
-  // アクセストークンの有効期間は数字に変換する
-  ACCESS_TOKEN_EXPIRES_IN: z
-    .string()
-    .transform(Number)
-    .default((60 * 60 * 24).toString()),
 });
 
 export type Env = z.infer<typeof envSchema>;
