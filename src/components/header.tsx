@@ -13,7 +13,7 @@ import {
 export const Header = ({ event }: { event?: BarEventWithSupporters }) => {
   const { theme, setTheme } = useTheme();
   return (
-    <header className="pointer-events-none fixed top-0 z-10 flex w-full justify-center">
+    <header className="pointer-events-none fixed top-0 z-10 flex w-full justify-center bg-gradient-to-b from-background/90 via-70% via-background/60 to-background/0">
       <div className="flex w-full max-w-md items-center justify-between p-4">
         <h1 className="flex items-center gap-2 text-primary">
           <a href="/" className="pointer-events-auto">

@@ -20,8 +20,8 @@ export const LobbyChat = ({ event }: { event: BarEventWithSupporters }) => {
         ))}
       </div>
 
-      <nav className="fixed bottom-0 z-10 flex w-full max-w-md justify-center">
-        <div className="flex w-screen max-w-md justify-between py-8">
+      <nav className="fixed bottom-0 left-0 z-10 flex w-full max-w-md justify-center bg-gradient-to-t from-background/90 via-70% via-background/60 to-background/0">
+        <div className="flex w-full justify-between gap-2 px-4 py-8">
           <Input
             type="text"
             placeholder="そういえばアレについて話したいんじゃなかった？"
