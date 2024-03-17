@@ -7,7 +7,7 @@ import { useWebSocket } from "./use-websocket";
 
 const Message = z.object({
   id: z.string(),
-  eventId: z.number(),
+  eventId: z.union([z.string().transform((val) => Number(val)), z.number()]),
   content: z.string(),
   user: User.optional(),
 });
