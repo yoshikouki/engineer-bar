@@ -7,12 +7,14 @@ import { useWebSocket } from "./use-websocket";
 
 const Message = z.object({
   id: z.string(),
+  eventId: z.number(),
   content: z.string(),
   user: User.optional(),
 });
 export type Message = z.infer<typeof Message>;
 
 export const useLobby = ({ event }: { event: BarEventWithSupporters }) => {
+  const eventId = event.id;
   const [newMessage, setNewMessage] = useState("");
   const { user } = useUser();
   const {
@@ -20,13 +22,16 @@ export const useLobby = ({ event }: { event: BarEventWithSupporters }) => {
     connect,
     sendMessage,
     isConnecting: isOnline,
-  } = useWebSocket({ url: { queries: { eventId: event.id } } });
+  } = useWebSocket({ url: { queries: { eventId } } });
 
   const messages: Message[] = [];
   for (const m of webSocketMessages) {
     const message = Message.safeParse(m);
     if (!message.success) {
       console.error(message.error);
+      continue;
+    }
+    if (message.data.eventId !== eventId) {
       continue;
     }
     messages.push(message.data);
@@ -36,7 +41,7 @@ export const useLobby = ({ event }: { event: BarEventWithSupporters }) => {
     setNewMessage(e.target.value);
   };
   const onSendMessage = () => {
-    sendMessage({ content: newMessage, user });
+    sendMessage({ content: newMessage, eventId, user });
     setNewMessage("");
   };
 

@@ -69,6 +69,7 @@ const routes = app
     const server = c.env as unknown as Server;
     const isUpdated = server.upgrade(c.req.raw, {
       data: {
+        eventId: c.req.query("eventId"),
         userId: accessToken.sub,
       },
     });
@@ -83,32 +84,52 @@ console.log(`Listening on http://localhost:${port}`);
 
 export type AppType = typeof routes;
 
-type WebSocketData = Record<string, never>;
+const getRobbyKey = (eventId?: string | number) => {
+  return eventId ? `robby:${eventId}` : "robby";
+};
+
+type WebSocketData = {
+  eventId?: number;
+  userId: string;
+};
 
 const server = Bun.serve({
   port,
   fetch: app.fetch,
   websocket: {
     open: (ws: ServerWebSocket<WebSocketData>) => {
-      ws.subscribe("robby");
+      const robbyKey = getRobbyKey(ws.data.eventId);
+      ws.subscribe(robbyKey);
+      console.log(
+        `[${new Date().toISOString()}] userId:${
+          ws.data.userId
+        } joined ${robbyKey}`,
+      );
     },
     message: (
       ws: ServerWebSocket<WebSocketData>,
       message: string | ArrayBuffer | Uint8Array,
     ) => {
       const data = JSON.parse(message.toString());
+      const eventId = ws.data.eventId ?? 0;
       server.publish(
-        "robby",
+        getRobbyKey(ws.data.eventId),
         JSON.stringify({
           id: crypto.randomUUID(),
+          eventId,
           content: data.content,
           user: data.user,
         }),
       );
     },
     close: (ws: ServerWebSocket<WebSocketData>) => {
-      ws.unsubscribe("robby");
-      console.log("WebSocket is closed.");
+      const robbyKey = getRobbyKey(ws.data.eventId);
+      ws.unsubscribe(robbyKey);
+      console.log(
+        `[${new Date().toISOString()}] userId:${
+          ws.data.userId
+        } left ${robbyKey}`,
+      );
     },
   },
 });
