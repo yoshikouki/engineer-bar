@@ -1,17 +1,9 @@
 import { useEffect } from "react";
-import { z } from "zod";
 
 import type { BarEventWithSupporters } from "@/hooks/use-data";
-import { User, useUser } from "../user/use-user";
+import { useUser } from "../user/use-user";
+import { Message } from "./schema";
 import { useWebSocket } from "./use-websocket";
-
-const Message = z.object({
-  id: z.string(),
-  eventId: z.union([z.string().transform((val) => Number(val)), z.number()]),
-  content: z.string(),
-  user: User.optional(),
-});
-export type Message = z.infer<typeof Message>;
 
 export const useLobby = ({ event }: { event: BarEventWithSupporters }) => {
   const eventId = event.id;

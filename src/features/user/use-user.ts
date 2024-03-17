@@ -1,13 +1,8 @@
 import { hc } from "hono/client";
 import { useEffect, useState } from "react";
-import { z } from "zod";
 
 import type { AppType } from "@/index";
-
-export const User = z.object({
-  id: z.string(),
-});
-export type User = z.infer<typeof User>;
+import type { User } from "./schema";
 
 export const client = hc<AppType>("/");
 
