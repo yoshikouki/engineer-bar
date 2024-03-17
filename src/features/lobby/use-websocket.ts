@@ -53,7 +53,10 @@ export const useWebSocket = (props: UseWebSocketProps) => {
     });
     socket.addEventListener("message", (event) => {
       const message = JSON.parse(event.data);
-      setMessages((prevMessages) => [...prevMessages, message]);
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        ...(Array.isArray(message) ? message : [message]),
+      ]);
       if (props.onMessage) props.onMessage(event);
     });
     socket.addEventListener("close", (event) => {

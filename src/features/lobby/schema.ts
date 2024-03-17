@@ -12,6 +12,12 @@ export const Message = z.object({
 });
 export type Message = z.infer<typeof Message>;
 
+export const NewMessage = z.object({
+  content: z.string(),
+  eventId: Id,
+  user: User.optional(),
+});
+
 const TalkThemeSuggestion = z.object({
   id: z.string(),
   type: z.literal("talkThemeSuggestion"),

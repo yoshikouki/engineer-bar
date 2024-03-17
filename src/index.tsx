@@ -7,6 +7,7 @@ import { secureHeaders } from "hono/secure-headers";
 import type { Server, ServerWebSocket } from "bun";
 import { App } from "./features/app";
 import { Lobby } from "./features/lobby";
+import { type Message, NewMessage } from "./features/lobby/schema";
 import {
   generateAccessToken,
   getAccessToken,
@@ -87,6 +88,7 @@ export type AppType = typeof routes;
 const getRobbyKey = (eventId?: string | number) => {
   return eventId ? `robby:${eventId}` : "robby";
 };
+const messages: Map<string, Message[]> = new Map();
 
 type WebSocketData = {
   eventId?: number;
@@ -105,22 +107,28 @@ const server = Bun.serve({
           ws.data.userId
         } joined ${robbyKey}`,
       );
+      ws.send(JSON.stringify(messages.get(robbyKey) ?? []));
     },
     message: (
       ws: ServerWebSocket<WebSocketData>,
       message: string | ArrayBuffer | Uint8Array,
     ) => {
-      const data = JSON.parse(message.toString());
-      const eventId = ws.data.eventId ?? 0;
-      server.publish(
-        getRobbyKey(ws.data.eventId),
-        JSON.stringify({
-          id: crypto.randomUUID(),
-          eventId,
-          content: data.content,
-          user: data.user,
-        }),
+      const incomingMessage = NewMessage.safeParse(
+        JSON.parse(message.toString()),
       );
+      if (!incomingMessage.success) {
+        console.error(incomingMessage.error);
+        return;
+      }
+      const newMessage: Message = {
+        ...incomingMessage.data,
+        id: crypto.randomUUID(),
+        type: "message",
+        eventId: ws.data.eventId ?? 0,
+      };
+      const robbyKey = getRobbyKey(ws.data.eventId);
+      server.publish(robbyKey, JSON.stringify(newMessage));
+      messages.set(robbyKey, [...(messages.get(robbyKey) ?? []), newMessage]);
     },
     close: (ws: ServerWebSocket<WebSocketData>) => {
       const robbyKey = getRobbyKey(ws.data.eventId);
