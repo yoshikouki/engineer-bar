@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { z } from "zod";
 
 import type { BarEventWithSupporters } from "@/hooks/use-data";
@@ -15,7 +15,6 @@ export type Message = z.infer<typeof Message>;
 
 export const useLobby = ({ event }: { event: BarEventWithSupporters }) => {
   const eventId = event.id;
-  const [newMessage, setNewMessage] = useState("");
   const { user } = useUser();
   const {
     messages: webSocketMessages,
@@ -37,17 +36,13 @@ export const useLobby = ({ event }: { event: BarEventWithSupporters }) => {
     messages.push(message.data);
   }
 
-  const onChangeNewMessage = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setNewMessage(e.target.value);
-  };
-  const onSendMessage = () => {
+  const onSendMessage = (newMessage: string) => {
     sendMessage({ content: newMessage, eventId, user });
-    setNewMessage("");
   };
 
   useEffect(() => {
     connect();
   }, [connect]);
 
-  return { newMessage, messages, isOnline, onChangeNewMessage, onSendMessage };
+  return { messages, isOnline, onSendMessage };
 };
