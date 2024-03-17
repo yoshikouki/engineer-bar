@@ -1,8 +1,8 @@
+import { reactRenderer } from "@hono/react-renderer";
 import { Hono } from "hono";
 import { serveStatic } from "hono/bun";
 import { logger } from "hono/logger";
 import { secureHeaders } from "hono/secure-headers";
-import { reactRenderer } from "./react-renderer";
 
 import type { Server, ServerWebSocket } from "bun";
 import { App } from "./features/app";
