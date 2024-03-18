@@ -5,6 +5,7 @@ import { logger } from "hono/logger";
 import { secureHeaders } from "hono/secure-headers";
 
 import type { Server, ServerWebSocket } from "bun";
+import { data } from "./data";
 import { App } from "./features/app";
 import { Lobby } from "./features/lobby";
 import { type Message, NewMessage } from "./features/lobby/schema";
@@ -120,6 +121,8 @@ const server = Bun.serve({
         console.error(incomingMessage.error);
         return;
       }
+
+      // Publish message
       const newMessage: Message = {
         ...incomingMessage.data,
         id: crypto.randomUUID(),
@@ -129,6 +132,18 @@ const server = Bun.serve({
       const robbyKey = getRobbyKey(ws.data.eventId);
       server.publish(robbyKey, JSON.stringify(newMessage));
       messages.set(robbyKey, [...(messages.get(robbyKey) ?? []), newMessage]);
+
+      // Topic suggestion
+      const randomIndex = Math.round(data.topics.length * Math.random()) - 1;
+      const topics = data.topics
+        .slice(randomIndex, randomIndex + 2)
+        .map((s) => ({
+          ...s,
+          id: crypto.randomUUID(),
+          eventId: ws.data.eventId ?? 0,
+          type: "topicSuggestion",
+        }));
+      server.publish(robbyKey, JSON.stringify(topics));
     },
     close: (ws: ServerWebSocket<WebSocketData>) => {
       const robbyKey = getRobbyKey(ws.data.eventId);

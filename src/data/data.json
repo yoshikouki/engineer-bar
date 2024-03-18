@@ -177,5 +177,107 @@
       "short_name": "unimal",
       "url": "https://unimal.jp/"
     }
-  }
+  },
+  "topics": [
+    {
+      "id": 1,
+      "topic": "スキルアップ方法",
+      "category": "キャリアアップ"
+    },
+    {
+      "id": 2,
+      "topic": "社内外の勉強会",
+      "category": "キャリアアップ"
+    },
+    {
+      "id": 3,
+      "topic": "業務外の学習活動",
+      "category": "キャリアアップ"
+    },
+    {
+      "id": 4,
+      "topic": "未経験からのエンジニアキャリア",
+      "category": "キャリアアップ"
+    },
+    {
+      "id": 5,
+      "topic": "人事評価制度",
+      "category": "評価と報酬"
+    },
+    {
+      "id": 6,
+      "topic": "給与",
+      "category": "評価と報酬"
+    },
+    {
+      "id": 7,
+      "topic": "リモートワーク",
+      "category": "働き方"
+    },
+    {
+      "id": 8,
+      "topic": "フレックス制度",
+      "category": "働き方"
+    },
+    {
+      "id": 9,
+      "topic": "副業",
+      "category": "働き方"
+    },
+    {
+      "id": 10,
+      "topic": "業務内容",
+      "category": "働き方"
+    },
+    {
+      "id": 11,
+      "topic": "働きがい",
+      "category": "働き方"
+    },
+    {
+      "id": 12,
+      "topic": "業務効率化",
+      "category": "働き方"
+    },
+    {
+      "id": 13,
+      "topic": "福利厚生",
+      "category": "会社環境"
+    },
+    {
+      "id": 14,
+      "topic": "社内イベント",
+      "category": "会社環境"
+    },
+    {
+      "id": 15,
+      "topic": "社内勉強会",
+      "category": "会社環境"
+    },
+    {
+      "id": 16,
+      "topic": "ユーザー視点でのものづくり",
+      "category": "開発スタイル"
+    },
+    {
+      "id": 17,
+      "topic": "エンジニアの一日",
+      "category": "開発スタイル"
+    },
+    {
+      "id": 18,
+      "topic": "メタバース",
+      "category": "最新トレンド"
+    },
+    {
+      "id": 19,
+      "topic": "参加者からの持ち込みテーマ",
+      "category": "その他"
+    },
+    {
+      "id": 20,
+      "topic": "開発環境へのこだわり",
+      "category": "開発スタイル"
+    }
+  ]
 }

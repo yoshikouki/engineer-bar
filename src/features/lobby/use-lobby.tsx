@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 import type { BarEventWithSupporters } from "@/hooks/use-data";
 import { useUser } from "../user/use-user";
-import { Message } from "./schema";
+import { IncomingMessage, type Message, type TopicSuggestion } from "./schema";
 import { useWebSocket } from "./use-websocket";
 
 export const useLobby = ({ event }: { event: BarEventWithSupporters }) => {
@@ -16,8 +16,13 @@ export const useLobby = ({ event }: { event: BarEventWithSupporters }) => {
   } = useWebSocket({ url: { queries: { eventId } } });
 
   const messages: Message[] = [];
+  const suggestion: {
+    topic: TopicSuggestion[];
+  } = {
+    topic: [],
+  };
   for (const m of webSocketMessages) {
-    const message = Message.safeParse(m);
+    const message = IncomingMessage.safeParse(m);
     if (!message.success) {
       console.error(message.error);
       continue;
@@ -25,16 +30,20 @@ export const useLobby = ({ event }: { event: BarEventWithSupporters }) => {
     if (message.data.eventId !== eventId) {
       continue;
     }
-    messages.push(message.data);
+    if (message.data.type === "message") {
+      messages.push(message.data);
+    } else if (message.data.type === "topicSuggestion") {
+      suggestion.topic.push(message.data);
+    }
   }
 
   const onSendMessage = (newMessage: string) => {
-    sendMessage({ content: newMessage, eventId, user });
+    sendMessage({ type: "newMessage", content: newMessage, eventId, user });
   };
 
   useEffect(() => {
     connect();
   }, [connect]);
 
-  return { messages, isOnline, onSendMessage };
+  return { messages, suggestion, isOnline, onSendMessage };
 };

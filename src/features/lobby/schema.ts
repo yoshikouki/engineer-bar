@@ -13,14 +13,22 @@ export const Message = z.object({
 export type Message = z.infer<typeof Message>;
 
 export const NewMessage = z.object({
+  type: z.literal("newMessage"),
   content: z.string(),
   eventId: Id,
   user: User.optional(),
 });
 
-const TalkThemeSuggestion = z.object({
+export const TopicSuggestion = z.object({
   id: z.string(),
-  type: z.literal("talkThemeSuggestion"),
+  type: z.literal("topicSuggestion"),
   eventId: z.union([z.string().transform((val) => Number(val)), z.number()]),
-  content: z.array(z.string()),
+  topic: z.string(),
+  category: z.string().optional(),
 });
+export type TopicSuggestion = z.infer<typeof TopicSuggestion>;
+
+export const IncomingMessage = z.discriminatedUnion("type", [
+  Message,
+  TopicSuggestion,
+]);
