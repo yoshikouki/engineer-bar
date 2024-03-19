@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 
-import type { BarEventWithSupporters } from "@/hooks/use-data";
+import type { BarEvent } from "@/hooks/use-data";
 import { useUser } from "../user/use-user";
 import { IncomingMessage, type Message, type TopicsSuggestion } from "./schema";
 import { useWebSocket } from "./use-websocket";
 
-export const useLobby = ({ event }: { event: BarEventWithSupporters }) => {
+export const useLobby = ({ event }: { event: BarEvent }) => {
   const eventId = event.id;
   const { user } = useUser();
   const {

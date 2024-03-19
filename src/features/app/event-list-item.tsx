@@ -13,11 +13,11 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
-import type { BarEventWithSupporters } from "@/hooks/use-data";
+import type { BarEvent } from "@/hooks/use-data";
 import { toYMD } from "@/lib/format";
 import { useState } from "react";
 
-export const EventListItem = ({ event }: { event: BarEventWithSupporters }) => {
+export const EventListItem = ({ event }: { event: BarEvent }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (

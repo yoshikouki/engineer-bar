@@ -1,4 +1,4 @@
-import type { BarEventWithSupporters } from "@/hooks/use-data";
+import type { BarEvent } from "@/hooks/use-data";
 import { Settings } from "lucide-react";
 import { Logo } from "./logo";
 import { type Theme, useTheme } from "./theme-provider";
@@ -10,7 +10,7 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 
-export const Header = ({ event }: { event?: BarEventWithSupporters }) => {
+export const Header = ({ event }: { event?: BarEvent }) => {
   const { theme, setTheme } = useTheme();
   return (
     <header className="pointer-events-none fixed top-0 z-10 flex w-full justify-center bg-gradient-to-b from-background/90 via-70% via-background/60 to-background/0">

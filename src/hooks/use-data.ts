@@ -1,8 +1,8 @@
-import { type BarEvent, type Supporter, data } from "@/data";
+import { data } from "@/data";
+import type { BarEvent as RawBarEventData } from "@/data/raw/events";
 
-export type BarEventWithSupporters = Omit<BarEvent, "supporters"> & {
+export type BarEvent = RawBarEventData & {
   isBefore: boolean;
-  supporters: Supporter[];
 };
 
 type UseDataProps = {
@@ -10,22 +10,22 @@ type UseDataProps = {
 };
 
 export const useData = (props?: UseDataProps) => {
-  const events = Object.values(data.events) || [];
-  const supporters = data.supporters;
-  const eventsWithSupporters = events
-    .sort((a, b) => b.id - a.id)
-    .map((event) => ({
-      ...event,
-      isBefore: new Date() < new Date(event.end_time),
-      supporters: event.supporters.map((id) => supporters[id]),
-    }));
-
-  const event = eventsWithSupporters.find(
-    (event) => event.id === props?.eventId,
+  const events = Object.fromEntries(
+    Object.entries(data.events).map(([id, event]) => {
+      return [id, { ...event, isBefore: new Date() < event.end_time }];
+    }),
   );
+  const supporters = Object.values(data.supporters) || [];
+  const event: BarEvent | undefined =
+    props?.eventId && data.events[props.eventId]
+      ? {
+          ...data.events[props.eventId],
+          isBefore: new Date() < data.events[props.eventId].end_time,
+        }
+      : undefined;
   if (props?.eventId && !event) {
     throw new Error(`Event with id ${props.eventId} not found`);
   }
 
-  return { events: eventsWithSupporters, supporters, event };
+  return { events: Object.values(events), supporters, event };
 };

@@ -1,4 +1,4 @@
-import { Topic } from "@/data";
+import { Topic } from "@/data/raw/topics";
 import { z } from "zod";
 import { User } from "../user/schema";
 

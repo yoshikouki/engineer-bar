@@ -1,9 +1,9 @@
 import { Skeleton } from "@/components/ui/skeleton";
-import type { BarEventWithSupporters } from "@/hooks/use-data";
+import type { BarEvent } from "@/hooks/use-data";
 import * as Progress from "@radix-ui/react-progress";
 import { useCallback, useEffect, useRef, useState } from "react";
 
-export const LobbyStatus = ({ event }: { event: BarEventWithSupporters }) => {
+export const LobbyStatus = ({ event }: { event: BarEvent }) => {
   const intervalRef = useRef<Timer>();
   const [now, setNow] = useState(new Date());
   const currentSegment = event.segments.find(
