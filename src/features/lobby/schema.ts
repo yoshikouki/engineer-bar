@@ -1,3 +1,4 @@
+import { Topic } from "@/data";
 import { z } from "zod";
 import { User } from "../user/schema";
 
@@ -19,16 +20,15 @@ export const NewMessage = z.object({
   user: User.optional(),
 });
 
-export const TopicSuggestion = z.object({
+export const TopicsSuggestion = z.object({
   id: z.string(),
   type: z.literal("topicSuggestion"),
   eventId: z.union([z.string().transform((val) => Number(val)), z.number()]),
-  topic: z.string(),
-  category: z.string().optional(),
+  topics: z.array(Topic),
 });
-export type TopicSuggestion = z.infer<typeof TopicSuggestion>;
+export type TopicsSuggestion = z.infer<typeof TopicsSuggestion>;
 
 export const IncomingMessage = z.discriminatedUnion("type", [
   Message,
-  TopicSuggestion,
+  TopicsSuggestion,
 ]);

@@ -33,12 +33,12 @@ export const LobbyChat = ({ event }: { event: BarEventWithSupporters }) => {
       </div>
 
       <nav className="fixed inset-x-0 bottom-0 z-10 flex w-full flex-col justify-center bg-gradient-to-t from-background/90 via-70% via-background/60 to-background/0">
-        {suggestion.topic.length > 0 && (
+        {suggestion.topics && (
           <ScrollArea className="w-full max-w-md whitespace-nowrap rounded-md border">
             <div>
-              {suggestion.topic.map((s) => (
+              {suggestion.topics.topics.map((s) => (
                 <div key={s.id} className="flex gap-2">
-                  <span className="text-primary">{s.topic}</span>
+                  <span className="text-primary">{s.content}</span>
                 </div>
               ))}
             </div>

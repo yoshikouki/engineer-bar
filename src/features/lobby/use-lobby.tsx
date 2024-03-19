@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 import type { BarEventWithSupporters } from "@/hooks/use-data";
 import { useUser } from "../user/use-user";
-import { IncomingMessage, type Message, type TopicSuggestion } from "./schema";
+import { IncomingMessage, type Message, type TopicsSuggestion } from "./schema";
 import { useWebSocket } from "./use-websocket";
 
 export const useLobby = ({ event }: { event: BarEventWithSupporters }) => {
@@ -17,9 +17,9 @@ export const useLobby = ({ event }: { event: BarEventWithSupporters }) => {
 
   const messages: Message[] = [];
   const suggestion: {
-    topic: TopicSuggestion[];
+    topics?: TopicsSuggestion;
   } = {
-    topic: [],
+    topics: undefined,
   };
   for (const m of webSocketMessages) {
     const message = IncomingMessage.safeParse(m);
@@ -33,7 +33,7 @@ export const useLobby = ({ event }: { event: BarEventWithSupporters }) => {
     if (message.data.type === "message") {
       messages.push(message.data);
     } else if (message.data.type === "topicSuggestion") {
-      suggestion.topic.push(message.data);
+      suggestion.topics = message.data;
     }
   }
 

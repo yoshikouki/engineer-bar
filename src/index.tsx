@@ -8,7 +8,11 @@ import type { Server, ServerWebSocket } from "bun";
 import { data } from "./data";
 import { App } from "./features/app";
 import { Lobby } from "./features/lobby";
-import { type Message, NewMessage } from "./features/lobby/schema";
+import {
+  type Message,
+  NewMessage,
+  type TopicsSuggestion,
+} from "./features/lobby/schema";
 import {
   generateAccessToken,
   getAccessToken,
@@ -86,10 +90,12 @@ console.log(`Listening on http://localhost:${port}`);
 
 export type AppType = typeof routes;
 
-const getRobbyKey = (eventId?: string | number) => {
+const getRobbyKey = (eventId?: string | number): RobbyKey => {
   return eventId ? `robby:${eventId}` : "robby";
 };
-const messages: Map<string, Message[]> = new Map();
+type RobbyKey = string;
+const messages: Map<RobbyKey, Message[]> = new Map();
+const topicsSuggestion: Map<RobbyKey, TopicsSuggestion> = new Map();
 
 type WebSocketData = {
   eventId?: number;
@@ -108,7 +114,13 @@ const server = Bun.serve({
           ws.data.userId
         } joined ${robbyKey}`,
       );
-      ws.send(JSON.stringify(messages.get(robbyKey) ?? []));
+      const storedMessages = messages.get(robbyKey);
+      if (storedMessages && storedMessages.length > 0) {
+        ws.send(JSON.stringify(storedMessages));
+      }
+      if (topicsSuggestion.get(robbyKey)) {
+        ws.send(JSON.stringify(topicsSuggestion.get(robbyKey)));
+      }
     },
     message: (
       ws: ServerWebSocket<WebSocketData>,
@@ -134,16 +146,18 @@ const server = Bun.serve({
       messages.set(robbyKey, [...(messages.get(robbyKey) ?? []), newMessage]);
 
       // Topic suggestion
-      const randomIndex = Math.round(data.topics.length * Math.random()) - 1;
-      const topics = data.topics
-        .slice(randomIndex, randomIndex + 2)
-        .map((s) => ({
-          ...s,
-          id: crypto.randomUUID(),
-          eventId: ws.data.eventId ?? 0,
-          type: "topicSuggestion",
-        }));
+      const randomIndex = Math.round((data.topics.length - 1) * Math.random());
+      const topics: TopicsSuggestion = {
+        id: crypto.randomUUID(),
+        type: "topicSuggestion",
+        eventId: ws.data.eventId ?? 0,
+        topics: data.topics.slice(
+          randomIndex,
+          Math.min(randomIndex + 2, data.topics.length - 1),
+        ),
+      };
       server.publish(robbyKey, JSON.stringify(topics));
+      topicsSuggestion.set(robbyKey, topics);
     },
     close: (ws: ServerWebSocket<WebSocketData>) => {
       const robbyKey = getRobbyKey(ws.data.eventId);

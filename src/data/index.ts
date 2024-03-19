@@ -41,7 +41,7 @@ export type BarEvent = z.infer<typeof BarEvent>;
 
 export const Topic = z.object({
   id: z.number(),
-  topic: z.string(),
+  content: z.string(),
   category: z.string().optional(),
 });
 export type Topic = z.infer<typeof Topic>;
