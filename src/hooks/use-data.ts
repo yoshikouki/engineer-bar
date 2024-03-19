@@ -10,10 +10,13 @@ type UseDataProps = {
 };
 
 export const useData = (props?: UseDataProps) => {
-  const events = Object.fromEntries(
+  const eventObjects = Object.fromEntries(
     Object.entries(data.events).map(([id, event]) => {
       return [id, { ...event, isBefore: new Date() < event.end_time }];
     }),
+  );
+  const events = Object.values(eventObjects).sort(
+    (a, b) => b.start_time.getTime() - a.start_time.getTime(),
   );
   const supporters = Object.values(data.supporters) || [];
   const event: BarEvent | undefined =
@@ -27,5 +30,5 @@ export const useData = (props?: UseDataProps) => {
     throw new Error(`Event with id ${props.eventId} not found`);
   }
 
-  return { events: Object.values(events), supporters, event };
+  return { events, supporters, event };
 };
