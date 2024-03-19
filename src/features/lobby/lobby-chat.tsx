@@ -2,9 +2,10 @@ import { useForm } from "react-hook-form";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import type { BarEventWithSupporters } from "@/hooks/use-data";
 import { env } from "@/lib/env.client";
+import { cn } from "@/lib/utils";
 import { useLobby } from "./use-lobby";
 
 export const LobbyChat = ({ event }: { event: BarEventWithSupporters }) => {
@@ -38,7 +39,13 @@ export const LobbyChat = ({ event }: { event: BarEventWithSupporters }) => {
         ))}
       </div>
 
-      <nav className="fixed inset-x-0 bottom-0 z-10 flex w-full flex-col justify-center bg-gradient-to-t from-background/90 via-70% via-background/60 to-background/0">
+      <nav
+        className={cn(
+          "fixed inset-x-0 bottom-0 z-10",
+          "flex w-full flex-col justify-center",
+          "bg-gradient-to-t from-background/90 via-70% via-background/60 to-background/0",
+        )}
+      >
         {isTopicsVisible && (
           <ScrollArea>
             <div className="flex w-full max-w-md gap-2 whitespace-nowrap px-4">
@@ -70,6 +77,7 @@ export const LobbyChat = ({ event }: { event: BarEventWithSupporters }) => {
                 <span className="text-primary">愛用エディター</span>
               </Button>
             </div>
+            <ScrollBar orientation="horizontal" />
           </ScrollArea>
         )}
 
