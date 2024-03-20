@@ -38,9 +38,7 @@ export const useWebSocket = (props: UseWebSocketProps) => {
       return;
     }
 
-    let url = env.DEV
-      ? "ws://localhost:8888/ws"
-      : "wss://engineer-bar.fly.dev/ws";
+    let url = env.DEV ? "ws://localhost:8888/ws" : "wss://engineer-bar.com/ws";
     if (props?.url?.queries) {
       url += `?${convertQueries(props.url.queries)}`;
     }

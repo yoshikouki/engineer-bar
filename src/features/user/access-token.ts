@@ -14,8 +14,7 @@ export type AccessTokenPayload = {
 };
 export const AccessTokenKey = "access_token";
 const domain =
-  env.NODE_ENV === "development" ? "localhost" : "engineer-bar.fly.dev";
-// env.NODE_ENV === "development" ? "localhost" : "engineer-bar.com";
+  env.NODE_ENV === "development" ? "localhost" : "engineer-bar.com";
 
 export const createAccessToken = async (userId: string) => {
   const newAccessToken = await sign(
