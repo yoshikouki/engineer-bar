@@ -13,7 +13,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
-import type { BarEvent } from "@/hooks/use-data";
+import type { BarEvent } from "@/data/use-data";
 import { toYMD } from "@/lib/format";
 import { useState } from "react";
 

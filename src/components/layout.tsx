@@ -1,6 +1,6 @@
 import type React from "react";
 
-import type { BarEvent } from "@/hooks/use-data";
+import type { BarEvent } from "@/data/use-data";
 import { env } from "@/lib/env.client";
 import { cn } from "@/lib/utils";
 import "../index.css";

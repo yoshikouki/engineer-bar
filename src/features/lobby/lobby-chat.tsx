@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import type { BarEvent } from "@/hooks/use-data";
+import type { BarEvent } from "@/data/use-data";
 import { env } from "@/lib/env.client";
 import { cn } from "@/lib/utils";
 import { useLobby } from "./use-lobby";

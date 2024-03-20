@@ -1,4 +1,4 @@
-import { useData } from "@/hooks/use-data";
+import { useData } from "@/data/use-data";
 
 import { EventListItem } from "./event-list-item";
 

@@ -1,4 +1,4 @@
-import type { BarEvent } from "@/hooks/use-data";
+import type { BarEvent } from "@/data/use-data";
 import { Settings } from "lucide-react";
 import { Logo } from "./logo";
 import { type Theme, useTheme } from "./theme-provider";

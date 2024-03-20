@@ -1,5 +1,5 @@
 import { Layout } from "@/components/layout";
-import { useData } from "@/hooks/use-data";
+import { useData } from "@/data/use-data";
 import { toHM, toYMD } from "@/lib/format";
 import { Clock8 } from "lucide-react";
 import { LobbyChat } from "./lobby-chat";

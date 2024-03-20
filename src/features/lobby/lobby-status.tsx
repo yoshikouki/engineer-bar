@@ -1,5 +1,5 @@
 import { Skeleton } from "@/components/ui/skeleton";
-import type { BarEvent } from "@/hooks/use-data";
+import type { BarEvent } from "@/data/use-data";
 import * as Progress from "@radix-ui/react-progress";
 import { useCallback, useEffect, useRef, useState } from "react";
 

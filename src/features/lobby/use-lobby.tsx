@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-import type { BarEvent } from "@/hooks/use-data";
+import type { BarEvent } from "@/data/use-data";
 import { useUser } from "../user/use-user";
 import { IncomingMessage, type Message, type TopicsSuggestion } from "./schema";
 import { useWebSocket } from "./use-websocket";
