@@ -30,7 +30,6 @@ export const LobbyChat = ({ event }: { event: BarEvent }) => {
   return (
     <>
       <div className="flex flex-col gap-4">
-        Message
         {messages.map((message) => (
           <div key={message.id} className="flex gap-2">
             {message.user?.id.slice(0, 2)}

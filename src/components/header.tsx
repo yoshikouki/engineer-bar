@@ -23,7 +23,7 @@ export const Header = ({ event }: { event?: BarEvent }) => {
           {event && (
             <a
               href={event.supporters[0]?.url}
-              className="inline-flex items-baseline gap-1"
+              className="pointer-events-auto inline-flex items-baseline gap-1"
               target="_blank"
               rel="noopener noreferrer"
             >
