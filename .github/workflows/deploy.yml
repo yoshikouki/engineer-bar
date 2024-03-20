@@ -15,7 +15,9 @@ jobs:
 
       - uses: superfly/flyctl-actions/setup-flyctl@master
 
-      - run: flyctl deploy --remote-only
+      - run: |
+          flyctl scale count 1 -y # The maximum number of instances to run
+          flyctl deploy --remote-only
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
           VITE_WEBSOCKET_URL: ${{ secrets.VITE_WEBSOCKET_URL }}
